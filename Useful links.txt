@@ -1,0 +1,3 @@
+Swipe Views with Tabs Navigation:
+	- https://developer.android.com/training/implementing-navigation/index.html
+	- https://www.youtube.com/watch?v=9phSvgqpNtE
