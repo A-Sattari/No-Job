@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Right Track</string>
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
+    <string name="home_tab">Home</string>
+    <string name="title_dashboard">Tab 2</string>
     <string name="title_notifications">Notifications</string>
+    <string name="tab4">Tab 4</string>
 </resources>

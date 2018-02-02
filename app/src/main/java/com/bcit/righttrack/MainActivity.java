@@ -11,34 +11,44 @@ public class MainActivity extends AppCompatActivity {
 
     private TextView mTextMessage;
 
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        /**************************************/
+
+        mTextMessage = findViewById(R.id.message);
+        BottomNavigationView bottomNavBar = findViewById(R.id.navigation);
+        // Creates a listener for the bottom navigation bar
+        bottomNavBar.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+    }
+
+
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
             switch (item.getItemId()) {
-                case R.id.navigation_home:
-                    mTextMessage.setText(R.string.title_home);
+                case R.id.homeTab:
+                    mTextMessage.setText(R.string.home_tab);
                     return true;
-                case R.id.navigation_dashboard:
+
+                case R.id.tab2:
                     mTextMessage.setText(R.string.title_dashboard);
                     return true;
-                case R.id.navigation_notifications:
+
+                case R.id.tab3:
                     mTextMessage.setText(R.string.title_notifications);
+                    return true;
+
+                case R.id.tab4:
+                    mTextMessage.setText(R.string.tab4);
                     return true;
             }
             return false;
         }
     };
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
-        mTextMessage = (TextView) findViewById(R.id.message);
-        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
-        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-    }
 
 }
