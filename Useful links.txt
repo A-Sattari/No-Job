@@ -1,3 +1,7 @@
+Fragments:
+	- https://developer.android.com/guide/components/fragments.html
+	- https://www.youtube.com/watch?v=afVktMf_LkE
+
 Swipe Views with Tabs Navigation:
 	- https://youtu.be/81653A9ToIk
 	- https://youtu.be/00LLd7qr9sA
