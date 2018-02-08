@@ -1,12 +1,15 @@
 package com.bcit.righttrack;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ListView;
 
 
 /**
@@ -26,6 +29,7 @@ public class HousingPage extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    private View view2;
 
     private OnFragmentInteractionListener mListener;
 
@@ -64,7 +68,16 @@ public class HousingPage extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_housing_page, container, false);
+        view2 = inflater.inflate(R.layout.fragment_housing_page, container, false);
+        ListView lv = view2.findViewById(R.id.listView2);
+        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Intent intent = new Intent(getActivity(), HousingInfoActivity.class);
+                startActivity(intent);
+            }
+        });
+        return view2;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
