@@ -7,17 +7,17 @@
         android:title="@string/home_tab" />
 
     <item
-        android:id="@+id/tab2"
+        android:id="@+id/trainingTab"
         android:icon="@drawable/ic_build_black_24dp"
         android:title="@string/title_dashboard" />
 
     <item
-        android:id="@+id/tab3"
+        android:id="@+id/foodBankTab"
         android:icon="@drawable/ic_kitchen_black_24dp"
         android:title="@string/title_notifications" />
 
     <item
-        android:id="@+id/foodBankTab"
+        android:id="@+id/housingTab"
         android:icon="@drawable/ic_location_city_black_24dp"
         android:title="@string/tab4" />
 

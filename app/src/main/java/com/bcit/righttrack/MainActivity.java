@@ -35,7 +35,7 @@ public class MainActivity
         setContentView(R.layout.activity_main);
         /**************************************/
 
-        // Initializng fragment manager
+        // Initializing fragment manager
         ft = getSupportFragmentManager().beginTransaction();
 
         // Setting the current fragment to the Home Page fragment upon startup
@@ -63,17 +63,17 @@ public class MainActivity
                     return true;
 
                 // Switch to Training Fragment when training tab is pressed
-                case R.id.tab2:
+                case R.id.trainingTab:
                     switchToTrainingFragment();
                     return true;
 
                 // Switch to Food Bank fragment when food tab is pressed
-                case R.id.tab3:
+                case R.id.foodBankTab:
                     switchToFoodFragment();
                     return true;
 
                 // Switch to Housing Fragment when housing tab is pressed
-                case R.id.foodBankTab:
+                case R.id.housingTab:
                     switchToHousingFragment();
 
                     return true;
