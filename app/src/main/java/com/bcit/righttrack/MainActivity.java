@@ -5,11 +5,9 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
-import android.widget.TextView;
 
 /**
  *
@@ -23,7 +21,6 @@ public class MainActivity
                    HousingPage.OnFragmentInteractionListener,
                    TrainingPage.OnFragmentInteractionListener{
 
-    private TextView mTextMessage;
 
     // Declaring Fragment objects
     private FragmentTransaction ft;
@@ -35,7 +32,7 @@ public class MainActivity
         setContentView(R.layout.activity_main);
         /**************************************/
 
-        // Initializng fragment manager
+        // Initializing fragment manager
         ft = getSupportFragmentManager().beginTransaction();
 
         // Setting the current fragment to the Home Page fragment upon startup
@@ -43,7 +40,6 @@ public class MainActivity
         ft.replace(R.id.container, currentFragment);
         ft.commit();
 
-        mTextMessage = findViewById(R.id.message);
         BottomNavigationView bottomNavBar = findViewById(R.id.navigation);
         // Creates a listener for the bottom navigation bar
         bottomNavBar.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
