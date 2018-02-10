@@ -1,9 +1,9 @@
 <resources>
     <string name="app_name">Right Track</string>
     <string name="home_tab">Home</string>
-    <string name="title_dashboard">Tab 2</string>
-    <string name="title_notifications">Notifications</string>
-    <string name="tab4">Tab 4</string>
+    <string name="title_dashboard">Training</string>
+    <string name="title_notifications">Food</string>
+    <string name="tab4">Housing</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
@@ -17,6 +17,40 @@
         <item>Chess</item>
         <item>Hockey</item>
     </string-array>
+    <string-array name="food_bank_array">
+        <item>Food Bank 1</item>
+        <item>Food Bank 2</item>
+        <item>Food Bank 3</item>
+        <item>Food Bank 4</item>
+        <item>Food Bank 5</item>
+        <item>Food Bank 6</item>
+        <item>Food Bank 7</item>
+        <item>Food Bank 8</item>
+        <item>Food Bank 9</item>
+    </string-array>
+    <string-array name="training_array">
+        <item>Training Facility 1</item>
+        <item>Training Facility 2</item>
+        <item>Training Facility 3</item>
+        <item>Training Facility 4</item>
+        <item>Training Facility 5</item>
+        <item>Training Facility 6</item>
+        <item>Training Facility 7</item>
+        <item>Training Facility 8</item>
+        <item>Training Facility 9</item>
+    </string-array>
+    <string-array name="housing_array">
+        <item>House Listing 1</item>
+        <item>House Listing 2</item>
+        <item>House Listing 3</item>
+        <item>House Listing 4</item>
+        <item>House Listing 5</item>
+        <item>House Listing 6</item>
+        <item>House Listing 7</item>
+        <item>House Listing 8</item>
+        <item>House Listing 9</item>
+    </string-array>
+
     <string name="Home">Home</string>
     <string name="Training">Training</string>
     <string name="Food">Food</string>

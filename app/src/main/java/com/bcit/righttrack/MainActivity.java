@@ -64,6 +64,7 @@ public class MainActivity
 
                 // Switch to Training Fragment when training tab is pressed
                 case R.id.tab2:
+
                     switchToTrainingFragment();
                     return true;
 
