@@ -1,97 +1,98 @@
 package com.bcit.righttrack;
 
+import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ListView;
 
+import java.util.ArrayList;
 
 /**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link TrainingPage.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link TrainingPage#newInstance} factory method to
- * create an instance of this fragment.
+ * Displays the list of organizations that help people to explore career options and improve their skills.
+ * @author Alireza Sattari
  */
-public class TrainingPage extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+public class EmploymentServices extends Fragment {
+
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-    private View view3;
-
+    private View mainView;
     private OnFragmentInteractionListener mListener;
+    private RecyclerView rcView;
+    private RecyclerView.LayoutManager rcLayoutManager;
+    private RecyclerView.Adapter rcAdapter;
+    private ArrayList<String> list;
 
-    public TrainingPage() {
-        // Required empty public constructor
-    }
 
     /**
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment TrainingPage.
+     * @return A new instance of fragment EmploymentServices.
      */
-    // TODO: Rename and change types and number of parameters
-    public static TrainingPage newInstance(String param1, String param2) {
-        TrainingPage fragment = new TrainingPage();
+    /*public static EmploymentServices newInstance(String param1, String param2) {
+        EmploymentServices fragment = new EmploymentServices();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
-    }
+    }*/
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
+        /***********/
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+            //mParam1 = getArguments().getString(ARG_PARAM1);
+            //mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        view3 = inflater.inflate(R.layout.fragment_training_page, container, false);
-        ListView lv = view3.findViewById(R.id.listView);
-        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Intent intent = new Intent(getActivity(), TrainingInfoActivity.class);
-                startActivity(intent);
-            }
-        });
-        return view3;
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
+        View rootView = inflater.inflate(R.layout.employment_services_page, container, false);
+        list = new ArrayList<>();
+
+        for (int z = 0; z < 20 ; z++) {
+            list.add("Abbas " + z);
+        }
+
+        // Gets the recycler view in the employment_services_page.xml
+        rcView = rootView.findViewById(R.id.recyclerView);
+        rcLayoutManager = new LinearLayoutManager(getActivity());
+        rcAdapter = new EsRecyclerViewAdapter(list);
+        rcView.setHasFixedSize(true);
+        rcView.setLayoutManager(rcLayoutManager);
+        rcView.setAdapter(rcAdapter);
+
+        return rootView;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
+            //mListener.onFragmentInteraction(uri);
         }
     }
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
+
         if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
+            //mListener = (OnFragmentInteractionListener) context;
         } else {
             throw new RuntimeException(context.toString()
                     + " must implement OnFragmentInteractionListener");
@@ -101,7 +102,7 @@ public class TrainingPage extends Fragment {
     @Override
     public void onDetach() {
         super.onDetach();
-        mListener = null;
+        //mListener = null;
     }
 
     /**

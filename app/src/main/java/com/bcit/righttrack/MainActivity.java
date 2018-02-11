@@ -19,7 +19,7 @@ public class MainActivity
         implements FoodBank.OnFragmentInteractionListener,
                    HomePage.OnFragmentInteractionListener,
                    HousingPage.OnFragmentInteractionListener,
-                   TrainingPage.OnFragmentInteractionListener{
+                   EmploymentServices.OnFragmentInteractionListener{
 
 
     // Declaring Fragment objects
@@ -58,25 +58,22 @@ public class MainActivity
                     switchToHomeFragment();
                     return true;
 
-                // Switch to Training Fragment when training tab is pressed
-                case R.id.tab2:
-
-                    switchToTrainingFragment();
-                    return true;
-
-                // Switch to Food Bank fragment when food tab is pressed
-                case R.id.tab3:
-                    switchToFoodFragment();
+                // Switch to ES Fragment when training tab is pressed
+                case R.id.esTab:
+                    switchToESFragment();
                     return true;
 
                 // Switch to Housing Fragment when housing tab is pressed
-                case R.id.foodBankTab:
+                case R.id.housingTab:
                     switchToHousingFragment();
+                    return true;
 
+                // Switch to Food Bank fragment when food tab is pressed
+                case R.id.foodBankTab:
+                    switchToFoodFragment();
                     return true;
             }
             return false;
-
         }
     };
 
@@ -91,10 +88,10 @@ public class MainActivity
         ft.replace(R.id.container, new HomePage()).commit();
     }
 
-    // Switches view to food bank page
-    public void switchToFoodFragment() {
+    // Switches view to ES page
+    public void switchToESFragment() {
         ft = getSupportFragmentManager().beginTransaction();
-        ft.replace(R.id.container, new FoodBank()).commit();
+        ft.replace(R.id.container, new EmploymentServices()).commit();
     }
 
     // Switches view to housing page
@@ -103,9 +100,9 @@ public class MainActivity
         ft.replace(R.id.container, new HousingPage()).commit();
     }
 
-    // Switches view to training page
-    public void switchToTrainingFragment() {
+    // Switches view to food bank page
+    public void switchToFoodFragment() {
         ft = getSupportFragmentManager().beginTransaction();
-        ft.replace(R.id.container, new TrainingPage()).commit();
+        ft.replace(R.id.container, new FoodBank()).commit();
     }
 }
