@@ -27,9 +27,8 @@ public class EmploymentServices extends Fragment {
     private View mainView;
     private OnFragmentInteractionListener mListener;
     private RecyclerView rcView;
-    private RecyclerView.LayoutManager rcLayoutManager;
     private RecyclerView.Adapter rcAdapter;
-    private ArrayList<String> list;
+    private RecyclerView.LayoutManager rcLayoutManager;
 
 
     /**
@@ -63,20 +62,15 @@ public class EmploymentServices extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View rootView = inflater.inflate(R.layout.employment_services_page, container, false);
-        list = new ArrayList<>();
 
-        for (int z = 0; z < 20 ; z++) {
-            list.add("Abbas " + z);
-        }
-
-        // Gets the recycler view in the employment_services_page.xml
+        // Gets the recycler view created in the employment_services_page.xml
         rcView = rootView.findViewById(R.id.recyclerView);
         rcLayoutManager = new LinearLayoutManager(getActivity());
-        rcAdapter = new EsRecyclerViewAdapter(list);
+        rcAdapter = new EsRecyclerViewAdapter(); // Custom Recycler Adaptor Class
         rcView.setHasFixedSize(true);
         rcView.setLayoutManager(rcLayoutManager);
         rcView.setAdapter(rcAdapter);
-
+        // TODO: Add rounded corners to each card
         return rootView;
     }
 

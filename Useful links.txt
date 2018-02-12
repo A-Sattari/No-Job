@@ -1,3 +1,8 @@
+Recycler View and Card View:
+	- https://www.youtube.com/watch?v=_KyAA425fxY
+	- https://www.youtube.com/watch?v=a4o9zFfyIM4
+	- https://willowtreeapps.com/ideas/android-fundamentals-working-with-the-recyclerview-adapter-and-viewholder-pattern/
+
 Fragments:
 	- https://developer.android.com/guide/components/fragments.html
 	- https://www.youtube.com/watch?v=afVktMf_LkE
