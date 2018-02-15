@@ -5,11 +5,9 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
-import android.widget.TextView;
 
 /**
  *
@@ -21,9 +19,8 @@ public class MainActivity
         implements FoodBank.OnFragmentInteractionListener,
                    HomePage.OnFragmentInteractionListener,
                    HousingPage.OnFragmentInteractionListener,
-                   TrainingPage.OnFragmentInteractionListener{
+                   EmploymentServices.OnFragmentInteractionListener{
 
-    private TextView mTextMessage;
 
     // Declaring Fragment objects
     private FragmentTransaction ft;
@@ -43,7 +40,6 @@ public class MainActivity
         ft.replace(R.id.container, currentFragment);
         ft.commit();
 
-        mTextMessage = findViewById(R.id.message);
         BottomNavigationView bottomNavBar = findViewById(R.id.navigation);
         // Creates a listener for the bottom navigation bar
         bottomNavBar.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
@@ -62,6 +58,7 @@ public class MainActivity
                     switchToHomeFragment();
                     return true;
 
+<<<<<<< HEAD
                 // Switch to Training Fragment when training tab is pressed
                 case R.id.trainingTab:
                     switchToTrainingFragment();
@@ -70,16 +67,24 @@ public class MainActivity
                 // Switch to Food Bank fragment when food tab is pressed
                 case R.id.foodBankTab:
                     switchToFoodFragment();
+=======
+                // Switch to ES Fragment when training tab is pressed
+                case R.id.esTab:
+                    switchToESFragment();
+>>>>>>> master
                     return true;
 
                 // Switch to Housing Fragment when housing tab is pressed
                 case R.id.housingTab:
                     switchToHousingFragment();
+                    return true;
 
+                // Switch to Food Bank fragment when food tab is pressed
+                case R.id.foodBankTab:
+                    switchToFoodFragment();
                     return true;
             }
             return false;
-
         }
     };
 
@@ -94,10 +99,10 @@ public class MainActivity
         ft.replace(R.id.container, new HomePage()).commit();
     }
 
-    // Switches view to food bank page
-    public void switchToFoodFragment() {
+    // Switches view to ES page
+    public void switchToESFragment() {
         ft = getSupportFragmentManager().beginTransaction();
-        ft.replace(R.id.container, new FoodBank()).commit();
+        ft.replace(R.id.container, new EmploymentServices()).commit();
     }
 
     // Switches view to housing page
@@ -106,9 +111,9 @@ public class MainActivity
         ft.replace(R.id.container, new HousingPage()).commit();
     }
 
-    // Switches view to training page
-    public void switchToTrainingFragment() {
+    // Switches view to food bank page
+    public void switchToFoodFragment() {
         ft = getSupportFragmentManager().beginTransaction();
-        ft.replace(R.id.container, new TrainingPage()).commit();
+        ft.replace(R.id.container, new FoodBank()).commit();
     }
 }

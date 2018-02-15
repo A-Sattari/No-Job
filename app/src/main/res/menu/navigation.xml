@@ -7,11 +7,16 @@
         android:title="@string/home_tab" />
 
     <item
+<<<<<<< HEAD
         android:id="@+id/trainingTab"
+=======
+        android:id="@+id/esTab"
+>>>>>>> master
         android:icon="@drawable/ic_build_black_24dp"
-        android:title="@string/title_dashboard" />
+        android:title="@string/es_tab" />
 
     <item
+<<<<<<< HEAD
         android:id="@+id/foodBankTab"
         android:icon="@drawable/ic_kitchen_black_24dp"
         android:title="@string/title_notifications" />
@@ -21,5 +26,15 @@
         android:icon="@drawable/ic_location_city_black_24dp"
         android:title="@string/tab4" />
 
+=======
+        android:id="@+id/housingTab"
+        android:icon="@drawable/ic_location_city_black_24dp"
+        android:title="@string/housing_tab" />
+
+    <item
+        android:id="@+id/foodBankTab"
+        android:icon="@drawable/ic_kitchen_black_24dp"
+        android:title="@string/food_tab" />
+>>>>>>> master
 
 </menu>
