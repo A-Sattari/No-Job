@@ -11,6 +11,15 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapView;
+import com.google.android.gms.maps.MapsInitializer;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.CameraPosition;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -30,6 +39,8 @@ public class HousingPage extends Fragment {
     private String mParam1;
     private String mParam2;
     private View view2;
+    private MapView mapView;
+    private GoogleMap map;
 
     private OnFragmentInteractionListener mListener;
 
@@ -69,16 +80,60 @@ public class HousingPage extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view2 = inflater.inflate(R.layout.fragment_housing_page, container, false);
-        ListView lv = view2.findViewById(R.id.listView2);
-        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        mapView = view2.findViewById(R.id.mapViewHousing);
+        mapView.onCreate(savedInstanceState);
+        mapView.onResume();
+
+        try {
+            MapsInitializer.initialize(getActivity().getApplicationContext());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        mapView.getMapAsync(new OnMapReadyCallback() {
             @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Intent intent = new Intent(getActivity(), HousingInfoActivity.class);
-                startActivity(intent);
+            public void onMapReady(GoogleMap mMap) {
+                map = mMap;
+
+                // For dropping a marker at a point on the Map
+                LatLng sydney = new LatLng(49.203496743701606, -122.90963686974206);
+                map.addMarker(new MarkerOptions().position(sydney).title("Marker Title").snippet("Marker Description"));
+
+                // For zooming automatically to the location of the marker
+                CameraPosition cameraPosition = new CameraPosition.Builder().target(sydney).zoom(12).build();
+                map.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
             }
         });
+
         return view2;
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        mapView.onResume();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        mapView.onPause();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mapView.onDestroy();
+    }
+
+    @Override
+    public void onLowMemory() {
+        super.onLowMemory();
+        mapView.onLowMemory();
+    }
+
+
+
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
