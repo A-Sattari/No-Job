@@ -69,14 +69,7 @@ public class FoodBank extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.food_bank, container, false);
-        ListView lv = view.findViewById(R.id.listView3);
-        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Intent intent = new Intent(getActivity(), FoodBankInfoActivity.class);
-                startActivity(intent);
-            }
-        });
+
         return view;
     }
 
