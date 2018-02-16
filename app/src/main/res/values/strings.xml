@@ -4,7 +4,7 @@
     <string name="es_tab">Employment Services</string>
     <string name="housing_tab">Housing</string>
     <string name="food_tab">Food Bank</string>
-
+    <string name="google_maps_api_key">AIzaSyAXEUWGH6G6ap9tDJQRt_tLWRgk0vr-fr0</string>
     <string name="card_website">Website</string>
     <string name="card_address">Address</string>
 

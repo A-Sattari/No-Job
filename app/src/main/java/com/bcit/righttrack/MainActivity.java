@@ -45,7 +45,6 @@ public class MainActivity
         bottomNavBar.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
     }
 
-
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
@@ -58,20 +57,9 @@ public class MainActivity
                     switchToHomeFragment();
                     return true;
 
-<<<<<<< HEAD
-                // Switch to Training Fragment when training tab is pressed
-                case R.id.trainingTab:
-                    switchToTrainingFragment();
-                    return true;
-
-                // Switch to Food Bank fragment when food tab is pressed
-                case R.id.foodBankTab:
-                    switchToFoodFragment();
-=======
                 // Switch to ES Fragment when training tab is pressed
                 case R.id.esTab:
                     switchToESFragment();
->>>>>>> master
                     return true;
 
                 // Switch to Housing Fragment when housing tab is pressed
