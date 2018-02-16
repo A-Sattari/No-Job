@@ -96,7 +96,7 @@ public class HousingPage extends Fragment {
                 map = mMap;
 
                 // For dropping a marker at a point on the Map
-                LatLng sydney = new LatLng(-34, 151);
+                LatLng sydney = new LatLng(49.203496743701606, -122.90963686974206);
                 map.addMarker(new MarkerOptions().position(sydney).title("Marker Title").snippet("Marker Description"));
 
                 // For zooming automatically to the location of the marker
