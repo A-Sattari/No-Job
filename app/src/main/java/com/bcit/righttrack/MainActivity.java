@@ -45,6 +45,7 @@ public class MainActivity
         bottomNavBar.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
     }
 
+
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
