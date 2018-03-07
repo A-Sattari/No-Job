@@ -12,6 +12,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
@@ -43,15 +44,15 @@ public class MainActivity
     // Declaring Fragment objects
     private FragmentTransaction ft;
     private Fragment currentFragment;
-    private ArrayList<String> nameArrayFoodBank;
-    private ArrayList<String> descriptionArrayFoodBank;
-    private ArrayList<String> websiteArrayFoodBank;
-    private ArrayList<String> addressArrayFoodBank;
+    public static ArrayList<String> nameArrayFoodBank;
+    public static ArrayList<String> descriptionArrayFoodBank;
+    public static ArrayList<String> websiteArrayFoodBank;
+    public static ArrayList<String> addressArrayFoodBank;
 
-    private ArrayList<String> nameArrayEmployment;
-    private ArrayList<String> descriptionArrayEmployment;
-    private ArrayList<String> websiteArrayEmployment;
-    private ArrayList<String> addressArrayEmployment;
+    public static ArrayList<String> nameArrayEmployment;
+    public static ArrayList<String> descriptionArrayEmployment;
+    public static ArrayList<String> websiteArrayEmployment;
+    public static ArrayList<String> addressArrayEmployment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,7 +80,6 @@ public class MainActivity
         ft.replace(R.id.container, currentFragment);
         ft.commit();
 
-
         BottomNavigationView bottomNavBar = findViewById(R.id.navigation);
         // Creates a listener for the bottom navigation bar
         bottomNavBar.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
@@ -88,6 +88,8 @@ public class MainActivity
         // Create and run async task, and get information from open datasets
         DownloadAsyncTask async = new DownloadAsyncTask();
         async.execute(FOOD_BANK_URL, EMPLOYMENT_SERVICES_URL);
+
+
     }
 
 
@@ -162,6 +164,13 @@ public class MainActivity
             }
             return null;
         }
+
+//        @Override
+//        protected void onPostExecute(Void aVoid) {
+//            super.onPostExecute(aVoid);
+//            TextView v = findViewById(R.id.orgName1);
+//            v.setText(nameArrayFoodBank.get(0));
+//        }
     }
 
     // Responsible for extracting JSON infor for card views (Food Bank and Employment pages)
@@ -206,14 +215,14 @@ public class MainActivity
             properties = feature.getAsJsonObject("properties");
             name        = properties.get("Name").getAsString();
             description = properties.get("Description").getAsString();
-            website = properties.get("Website").getAsString();
+            website = properties.get("Website").getAsString().toLowerCase();
             address = properties.get("Location").getAsString();
 
             nameArrayFoodBank.add(name);
             descriptionArrayFoodBank.add(description);
             websiteArrayFoodBank.add(website);
             addressArrayFoodBank.add(address);
-            Log.wtf(TAG, name);
+            Log.wtf(TAG, nameArrayFoodBank.get(0));
         }
     }
 

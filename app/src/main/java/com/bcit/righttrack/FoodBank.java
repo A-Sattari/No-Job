@@ -5,11 +5,16 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 
 /**
@@ -70,6 +75,22 @@ public class FoodBank extends Fragment {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.food_bank, container, false);
 
+        // Declare Linear Layout containing card views
+        LinearLayout ll = view.findViewById(R.id.foodBankLinearLayout);
+
+        // Iterate through children, and assign text from appropriate arrays
+        for (int i = 0; i < ll.getChildCount(); i++) {
+            CardView cv = (CardView) ll.getChildAt(i);
+            RelativeLayout rl = (RelativeLayout) cv.getChildAt(0);
+
+            // Declare views
+            TextView name = (TextView) rl.getChildAt(0);
+            TextView description = (TextView) rl.getChildAt(1);
+
+            // Assign views text from appropriate arrays
+            name.setText(MainActivity.nameArrayFoodBank.get(i));
+            description.setText(MainActivity.descriptionArrayFoodBank.get(i));
+        }
         return view;
     }
 
