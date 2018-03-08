@@ -2,8 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://C:\Users\dzhan\OneDrive\Documents\Term 3\COMP3717_Android\RightTrack\Right-Track.iml" filepath="C:\Users\dzhan\OneDrive\Documents\Term 3\COMP3717_Android\RightTrack\Right-Track.iml" />
-      <module fileurl="file://$PROJECT_DIR$/RightTrack.iml" filepath="$PROJECT_DIR$/RightTrack.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Right-Track.iml" filepath="$PROJECT_DIR$/Right-Track.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>

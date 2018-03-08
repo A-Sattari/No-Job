@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ripple xmlns:android="http://schemas.android.com/apk/res/android"
+    android:color="#bab6b6"> <!-- What color it turns to on press hold -->
+
+    <!-- Background Image -->
+    <item android:drawable="@drawable/website"/>
+</ripple>
