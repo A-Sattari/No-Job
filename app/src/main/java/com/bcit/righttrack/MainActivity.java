@@ -40,7 +40,7 @@ public class MainActivity
     // Location of New West Open Datasets
     public static String FOOD_BANK_URL = "http://opendata.newwestcity.ca/downloads/food/FOOD_PROGRAMS_AND_SERVICES.json";
     public static String EMPLOYMENT_SERVICES_URL = "http://opendata.newwestcity.ca/downloads/employment/EMPLOYMENT_AND_JOB_TRAINING.json";
-
+    public static String HOUSING_URL = "http://opendata.newwestcity.ca/downloads/nonmarket-and-coop-housing/NONMARKET_AND_COOP_HOUSING.json";
     // Declaring Fragment objects
     private FragmentTransaction ft;
     private Fragment currentFragment;
@@ -53,6 +53,12 @@ public class MainActivity
     public static ArrayList<String> descriptionArrayEmployment;
     public static ArrayList<String> websiteArrayEmployment;
     public static ArrayList<String> addressArrayEmployment;
+
+    public static ArrayList<String> nameArrayHousing;
+    public static ArrayList<String> descriptionArrayHousing;
+    public static ArrayList<String> hoursArrayHousing;
+    public static ArrayList<String> longitudeArrayHousing;
+    public static ArrayList<String> latitudeArrayHousing;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,6 +81,13 @@ public class MainActivity
         websiteArrayEmployment = new ArrayList<String>();
         addressArrayEmployment = new ArrayList<String>();
 
+        // Initializing arrays containing non market and coop housing information
+        nameArrayHousing = new ArrayList<>();
+        descriptionArrayHousing = new ArrayList<>();
+        hoursArrayHousing = new ArrayList<>();
+        longitudeArrayHousing = new ArrayList<>();
+        latitudeArrayHousing = new ArrayList<>();
+
         // Setting the current fragment to the Home Page fragment upon startup
         currentFragment = new HomePage();
         ft.replace(R.id.container, currentFragment);
@@ -87,7 +100,7 @@ public class MainActivity
 
         // Create and run async task, and get information from open datasets
         DownloadAsyncTask async = new DownloadAsyncTask();
-        async.execute(FOOD_BANK_URL, EMPLOYMENT_SERVICES_URL);
+        async.execute(FOOD_BANK_URL, EMPLOYMENT_SERVICES_URL, HOUSING_URL);
 
 
     }
@@ -173,7 +186,7 @@ public class MainActivity
 //        }
     }
 
-    // Responsible for extracting JSON infor for card views (Food Bank and Employment pages)
+    // Responsible for extracting JSON info for card views (Food Bank and Employment pages)
     public void cardDownload(String pUrl, final int sourceData) {
         Ion.with(MainActivity.this).
                 load(pUrl).
@@ -189,6 +202,8 @@ public class MainActivity
                                     // Call Employment download on second iteration
                                     } else if (sourceData == 1) {
                                         downloadEmploymentInfoSuccess(result);
+                                    } else if (sourceData == 2) {
+                                        downloadHousingInfoSuccess(result);
                                     }
                                 } else {
                                     downloadError(e);
@@ -252,6 +267,40 @@ public class MainActivity
             addressArrayEmployment.add(address);
             Log.wtf(TAG, name);
         }
+    }
+
+    // Extract housing info and populates appropriate arrays
+    private void downloadHousingInfoSuccess(final JsonObject jsonObject) {
+        final JsonArray places;
+        places = jsonObject.getAsJsonArray("features");
+
+        for (final JsonElement jsonElement : places) {
+            final JsonObject feature;
+            final JsonObject properties;
+            final String name;
+            final String description;
+            final String hours;
+            final String latitude;
+            final String longitude;
+
+            feature = jsonElement.getAsJsonObject();
+            properties = feature.getAsJsonObject("properties");
+            name = properties.get("Name").getAsString();
+            description = properties.get("Description").getAsString();
+            hours = properties.get("Hours").getAsString();
+            latitude = properties.get("Y").getAsString();
+            longitude = properties.get("X").getAsString();
+
+            nameArrayHousing.add(name);
+            descriptionArrayHousing.add(description);
+            hoursArrayHousing.add(hours);
+            latitudeArrayHousing.add(latitude);
+            longitudeArrayHousing.add(longitude);
+
+
+        }
+
+
     }
 
     // Generic error handling message for failed open data reads
