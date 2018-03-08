@@ -4,6 +4,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
@@ -41,6 +42,8 @@ public class MainActivity
         ft.commit();
 
         BottomNavigationView bottomNavBar = findViewById(R.id.navigation);
+        CoordinatorLayout.LayoutParams layoutParams = (CoordinatorLayout.LayoutParams) bottomNavBar.getLayoutParams();
+        layoutParams.setBehavior(new BottomNavigationViewBehavior());
         // Creates a listener for the bottom navigation bar
         bottomNavBar.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
     }
