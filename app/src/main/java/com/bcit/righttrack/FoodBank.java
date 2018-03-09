@@ -15,16 +15,19 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapView;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.CameraPosition;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
 
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link FoodBank.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link FoodBank#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class FoodBank extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -34,7 +37,9 @@ public class FoodBank extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-    private View view;
+    private View foodBankView;
+    private MapView mapView;
+    private GoogleMap gMap;
 
     private OnFragmentInteractionListener mListener;
 
@@ -70,28 +75,68 @@ public class FoodBank extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
         // Inflate the layout for this fragment
-        view = inflater.inflate(R.layout.food_bank, container, false);
+        foodBankView = inflater.inflate(R.layout.food_bank, container, false);
+        mapView = foodBankView.findViewById(R.id.fbMapView);
+        mapView.onCreate(savedInstanceState);
+        mapView.onResume();
 
-        // Declare Linear Layout containing card views
-        LinearLayout ll = view.findViewById(R.id.foodBankLinearLayout);
+        // Google Map View Configuration
+        mapView.getMapAsync(new OnMapReadyCallback() {
+            @Override
+            public void onMapReady(GoogleMap mMap) {
+                gMap = mMap;
 
-        // Iterate through children, and assign text from appropriate arrays
-        for (int i = 0; i < ll.getChildCount(); i++) {
-            CardView cv = (CardView) ll.getChildAt(i);
-            RelativeLayout rl = (RelativeLayout) cv.getChildAt(0);
+                // For dropping a marker at a point on the Map
+                LatLng location = new LatLng(49.203496743701606, -122.90963686974206);
+                gMap.addMarker(new MarkerOptions().position(location).title("Marker Title").snippet("Marker Description"));
 
-            // Declare views
-            TextView name = (TextView) rl.getChildAt(0);
-            TextView description = (TextView) rl.getChildAt(1);
+                // For zooming automatically to the location of the marker
+                CameraPosition cameraPosition = new CameraPosition.Builder().target(location).zoom(12).build();
+                gMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
 
-            // Assign views text from appropriate arrays
-            name.setText(MainActivity.nameArrayFoodBank.get(i));
-            description.setText(MainActivity.descriptionArrayFoodBank.get(i));
-        }
-        return view;
+                // Marker click listener
+                gMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+
+                    @Override
+                    public boolean onMarkerClick(Marker marker) {
+                        marker.setZIndex(20);
+                        // changes the marker color
+                        marker.setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE));
+                        return false;
+                    }
+                });
+            }
+
+        });
+
+        return foodBankView;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        mapView.onResume();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        mapView.onPause();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mapView.onDestroy();
+    }
+
+    @Override
+    public void onLowMemory() {
+        super.onLowMemory();
+        mapView.onLowMemory();
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -107,8 +152,8 @@ public class FoodBank extends Fragment {
         if (context instanceof OnFragmentInteractionListener) {
             mListener = (OnFragmentInteractionListener) context;
         } else {
-            /*throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");*/
+            throw new RuntimeException(context.toString()
+                    + " must implement OnFragmentInteractionListener");
         }
     }
 
