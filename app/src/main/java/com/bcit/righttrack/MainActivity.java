@@ -84,7 +84,6 @@ public class MainActivity
         async.execute(FOOD_BANK_URL, EMPLOYMENT_SERVICES_URL);
     }
 
-
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 

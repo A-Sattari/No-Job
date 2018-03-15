@@ -1,11 +1,15 @@
 package com.bcit.righttrack;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomSheetBehavior;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.CardView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +25,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
@@ -40,6 +45,9 @@ public class FoodBank extends Fragment {
     private View foodBankView;
     private MapView mapView;
     private GoogleMap gMap;
+    private Marker previousMarker = null;
+    private BottomSheetBehavior bottomSheetBehavior;
+    private TextView fbName;
 
     private OnFragmentInteractionListener mListener;
 
@@ -83,15 +91,38 @@ public class FoodBank extends Fragment {
         mapView.onCreate(savedInstanceState);
         mapView.onResume();
 
+        // Bottom Sheet configuration
+        final View bottomSheet = foodBankView.findViewById(R.id.fb_bottom_sheet);
+        bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
+        /*bottomSheetBehavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
+            @Override
+            public void onStateChanged(@NonNull View bottomSheet, int newState) {
+                if (newState == BottomSheetBehavior.STATE_DRAGGING) {
+                    bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+                }
+            }
+            @Override
+            public void onSlide(@NonNull View bottomSheet, float slideOffset) {}
+        });*/
+        bottomSheetBehavior.setHideable(true);
+        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
+
+        fbName = foodBankView.findViewById(R.id.fbName);
+
         // Google Map View Configuration
         mapView.getMapAsync(new OnMapReadyCallback() {
+
             @Override
             public void onMapReady(GoogleMap mMap) {
                 gMap = mMap;
 
                 // For dropping a marker at a point on the Map
                 LatLng location = new LatLng(49.203496743701606, -122.90963686974206);
+                LatLng location2 = new LatLng(49.22491835146481, -122.91048369358666);
+                LatLng location3 = new LatLng(49.21491835146481, -122.91048369358666);
                 gMap.addMarker(new MarkerOptions().position(location).title("Marker Title").snippet("Marker Description"));
+                gMap.addMarker(new MarkerOptions().position(location2).title("Marker2 Title").snippet("Marker2 Description"));
+                gMap.addMarker(new MarkerOptions().position(location3).title("Marker3 Title").snippet("Marker3 Description"));
 
                 // For zooming automatically to the location of the marker
                 CameraPosition cameraPosition = new CameraPosition.Builder().target(location).zoom(12).build();
@@ -99,13 +130,37 @@ public class FoodBank extends Fragment {
 
                 // Marker click listener
                 gMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
-
                     @Override
                     public boolean onMarkerClick(Marker marker) {
-                        marker.setZIndex(20);
-                        // changes the marker color
-                        marker.setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE));
-                        return false;
+                        marker.hideInfoWindow();
+
+                        // If the marker wasn't click, change its color
+                        if (previousMarker == null) {
+                            marker.setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE));
+
+                        } else { // If the marker was clicked before, then resets it color to red
+                            previousMarker.setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
+                            marker.setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE));
+                        }
+                        previousMarker = marker;
+
+                        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+                        fbName.setText(marker.getTitle());
+
+                        return true;
+                    }
+                });
+
+                // Map click listener
+                gMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+                    @Override
+                    public void onMapClick(LatLng latLng) {
+
+                        bottomSheetBehavior.setHideable(true);
+                        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
+                        // Resets the marker color when user clicks on the map
+                        if (previousMarker != null)
+                            previousMarker.setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
                     }
                 });
             }
