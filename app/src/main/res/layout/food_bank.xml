@@ -46,7 +46,7 @@
             android:layout_marginEnd="30dp"
             android:backgroundTint="@color/paleOrange"
             android:drawableStart="@drawable/ic_direction"
-            android:text="Direction" />
+            android:text="@string/direction" />
 
         <Button
             android:id="@+id/fbPhone"
@@ -59,7 +59,7 @@
             android:layout_marginStart="30dp"
             android:backgroundTint="@color/paleOrange"
             android:drawableStart="@drawable/ic_phone"
-            android:text="Phone" />
+            android:text="@string/phone" />
 
     </RelativeLayout>
 
