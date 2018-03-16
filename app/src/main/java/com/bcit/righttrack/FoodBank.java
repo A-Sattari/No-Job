@@ -48,6 +48,8 @@ public class FoodBank extends Fragment {
     private Marker previousMarker = null;
     private BottomSheetBehavior bottomSheetBehavior;
     private TextView fbName;
+    private Button phoneButton;
+    private Button directionButton;
 
     private OnFragmentInteractionListener mListener;
 
@@ -91,19 +93,23 @@ public class FoodBank extends Fragment {
         mapView.onCreate(savedInstanceState);
         mapView.onResume();
 
+        // Buttons
+        directionButton = foodBankView.findViewById(R.id.fbDirection);
+        phoneButton = foodBankView.findViewById(R.id.fbPhone);
+
         // Bottom Sheet configuration
         final View bottomSheet = foodBankView.findViewById(R.id.fb_bottom_sheet);
         bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
-        /*bottomSheetBehavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
+        bottomSheetBehavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
             @Override
             public void onStateChanged(@NonNull View bottomSheet, int newState) {
-                if (newState == BottomSheetBehavior.STATE_DRAGGING) {
-                    bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+                if (newState == BottomSheetBehavior.STATE_HIDDEN) {
+                    previousMarker.setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
                 }
             }
             @Override
             public void onSlide(@NonNull View bottomSheet, float slideOffset) {}
-        });*/
+        });
         bottomSheetBehavior.setHideable(true);
         bottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
 
@@ -120,9 +126,9 @@ public class FoodBank extends Fragment {
                 LatLng location = new LatLng(49.203496743701606, -122.90963686974206);
                 LatLng location2 = new LatLng(49.22491835146481, -122.91048369358666);
                 LatLng location3 = new LatLng(49.21491835146481, -122.91048369358666);
-                gMap.addMarker(new MarkerOptions().position(location).title("Marker Title").snippet("Marker Description"));
-                gMap.addMarker(new MarkerOptions().position(location2).title("Marker2 Title").snippet("Marker2 Description"));
-                gMap.addMarker(new MarkerOptions().position(location3).title("Marker3 Title").snippet("Marker3 Description"));
+                gMap.addMarker(new MarkerOptions().position(location).title("Holy Trinity Anglican Cathedral - Breakfast Program").snippet("(604)521-2511"));
+                gMap.addMarker(new MarkerOptions().position(location2).title("Marker2 Title").snippet("(604)521-2511"));
+                gMap.addMarker(new MarkerOptions().position(location3).title("Marker3 Title").snippet("(604)517-6168"));
 
                 // For zooming automatically to the location of the marker
                 CameraPosition cameraPosition = new CameraPosition.Builder().target(location).zoom(12).build();
@@ -146,6 +152,10 @@ public class FoodBank extends Fragment {
 
                         bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
                         fbName.setText(marker.getTitle());
+
+                        // Buttons
+                        directionButtonListener(directionButton, 49.203496743701606, -122.90963686974206);
+                        phoneButtonListener(phoneButton, marker.getSnippet());
 
                         return true;
                     }
@@ -231,5 +241,46 @@ public class FoodBank extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
+    }
+
+    /**
+     * Direction button listener.
+     * @param direction button
+     */
+    private void directionButtonListener(final Button direction, final double latY, final double longX) {
+        final Uri geoUri = Uri.parse("google.navigation:q=" + latY + "," + longX);
+
+        direction.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Opens Google Map in navigation mode
+                Intent gMapDir = new Intent(Intent.ACTION_VIEW, geoUri);
+                startActivity(gMapDir);
+
+                // Checks whether user's device has an app that can respond to this intent
+                if (gMapDir.resolveActivity(getActivity().getPackageManager()) != null) {
+                    (getActivity().getApplicationContext()).startActivity(gMapDir);
+                } else {
+                    Toast.makeText(getActivity().getApplicationContext(),
+                            "Google Map is not installed on your device.", Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+    }
+
+    /**
+     * Phone button listener.
+     * @param phone button
+     */
+    private void phoneButtonListener(final Button phone, final String phoneNumber) {
+        final Uri phoneUri = Uri.parse("tel:" + phoneNumber);
+
+        phone.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent dialIntent = new Intent(Intent.ACTION_VIEW, phoneUri);
+                startActivity(dialIntent);
+            }
+        });
     }
 }
