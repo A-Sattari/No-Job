@@ -1,354 +1,66 @@
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/frameLayout"
+    android:id="@+id/foodbank_coordinator"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="com.bcit.righttrack.FoodBank">
+    android:layout_height="match_parent">
 
-    <!-- TODO: Update blank fragment layout -->
-
-    <ScrollView
-        android:layout_width="342dp"
-        android:layout_height="551dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+    <com.google.android.gms.maps.MapView
+        android:id="@+id/fbMapView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="50dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent" />
 
+    <RelativeLayout
+        android:id="@+id/fb_bottom_sheet"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:clipToPadding="true"
+        android:background="@color/paleGray"
+        app:layout_behavior="android.support.design.widget.BottomSheetBehavior">
 
-        <LinearLayout
-            android:id="@+id/foodBankLinearLayout"
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/fbName"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginEnd="2dp"
+            android:layout_marginStart="2dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="6dp"
+            android:textAlignment="center"
+            android:textColor="@color/darkBlue"
+            android:textSize="18sp" />
 
-            <android.support.v7.widget.CardView
-                android:id="@+id/foodBankCardView1"
-                android:layout_width="match_parent"
-                android:layout_height="190sp"
-                android:layout_marginBottom="8dp"
-                android:layout_marginTop="8dp"
-                app:cardUseCompatPadding="true"
-                app:elevation="2dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+        <Button
+            android:id="@+id/fbDirection"
+            android:layout_width="130dp"
+            android:layout_height="50dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginBottom="50dp"
+            android:layout_marginEnd="30dp"
+            android:backgroundTint="@color/paleOrange"
+            android:drawableStart="@drawable/ic_direction"
+            android:text="@string/direction" />
 
-                <RelativeLayout
-                    android:id="@+id/cardRelativeLayout1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
+        <Button
+            android:id="@+id/fbPhone"
+            android:layout_width="130dp"
+            android:layout_height="50dp"
+            android:layout_alignBaseline="@+id/fbDirection"
+            android:layout_alignBottom="@+id/fbDirection"
+            android:layout_alignParentStart="true"
+            android:layout_marginBottom="50dp"
+            android:layout_marginStart="30dp"
+            android:backgroundTint="@color/paleOrange"
+            android:drawableStart="@drawable/ic_phone"
+            android:text="@string/phone" />
 
-                    <TextView
-                        android:id="@+id/orgName1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentTop="true"
-                        android:layout_centerHorizontal="true"
-                        android:layout_marginTop="8dp"
-                        android:text="Food Bank Name"
-                        android:textColor="@color/black"
-                        android:textSize="22sp" />
+    </RelativeLayout>
 
-                    <TextView
-                        android:id="@+id/description1"
-                        android:layout_width="match_parent"
-                        android:layout_height="80dp"
-                        android:layout_below="@+id/orgName1"
-                        android:layout_marginTop="12dp"
-                        android:background="@android:color/transparent"
-                        android:text="Description of the food bank blah blah blah blah blah blah blah blah blah blah blah blah"
-                        android:textColor="@color/black"
-                        android:textSize="16sp" />
-
-                    <Button
-                        android:id="@+id/website1"
-                        android:layout_width="160dp"
-                        android:layout_height="55dp"
-                        android:layout_alignParentBottom="true"
-                        android:layout_alignParentStart="true"
-
-                        android:background="@android:color/transparent"
-                        android:text="@string/card_website" />
-
-                    <Button
-                        android:id="@+id/address1"
-                        android:layout_width="160dp"
-                        android:layout_height="55dp"
-                        android:layout_alignParentBottom="true"
-                        android:layout_alignParentEnd="true"
-                        android:layout_marginTop="4dp"
-                        android:background="@android:color/transparent"
-                        android:text="@string/card_address" />
-
-                </RelativeLayout>
-            </android.support.v7.widget.CardView>
-
-            <android.support.v7.widget.CardView
-                android:id="@+id/foodBankCardView2"
-                android:layout_width="match_parent"
-                android:layout_height="190sp"
-                android:layout_marginBottom="8dp"
-                android:layout_marginTop="8dp"
-                app:cardUseCompatPadding="true"
-                app:elevation="2dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
-
-                <RelativeLayout
-                    android:id="@+id/cardRelativeLayout2"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <TextView
-                        android:id="@+id/orgName2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentTop="true"
-                        android:layout_centerHorizontal="true"
-                        android:layout_marginTop="8dp"
-                        android:text="Food Bank Name"
-                        android:textColor="@color/black"
-                        android:textSize="22sp" />
-
-                    <TextView
-                        android:id="@+id/description2"
-                        android:layout_width="match_parent"
-                        android:layout_height="80dp"
-                        android:layout_below="@+id/orgName2"
-                        android:layout_marginTop="12dp"
-                        android:background="@android:color/transparent"
-                        android:text="Description of the food bank blah blah blah blah blah blah blah blah blah blah blah blah"
-                        android:textColor="@color/black"
-                        android:textSize="16sp" />
-
-                    <Button
-                        android:id="@+id/website2"
-                        android:layout_width="160dp"
-                        android:layout_height="55dp"
-                        android:layout_alignParentBottom="true"
-                        android:layout_alignParentStart="true"
-                        android:layout_marginTop="4dp"
-                        android:background="@android:color/transparent"
-                        android:text="@string/card_website" />
-
-                    <Button
-                        android:id="@+id/address2"
-                        android:layout_width="160dp"
-                        android:layout_height="55dp"
-                        android:layout_alignParentBottom="true"
-                        android:layout_alignParentEnd="true"
-                        android:layout_marginTop="4dp"
-                        android:background="@android:color/transparent"
-                        android:text="@string/card_address" />
-
-                </RelativeLayout>
-            </android.support.v7.widget.CardView>
-
-            <android.support.v7.widget.CardView
-                android:id="@+id/foodBankCardView3"
-                android:layout_width="match_parent"
-                android:layout_height="190sp"
-                android:layout_marginBottom="8dp"
-                android:layout_marginTop="8dp"
-                app:cardUseCompatPadding="true"
-                app:elevation="2dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
-
-                <RelativeLayout
-                    android:id="@+id/cardRelativeLayout3"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <TextView
-                        android:id="@+id/orgName3"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentTop="true"
-                        android:layout_centerHorizontal="true"
-                        android:layout_marginTop="8dp"
-                        android:text="Food Bank Name"
-                        android:textColor="@color/black"
-                        android:textSize="22sp" />
-
-                    <TextView
-                        android:id="@+id/description3"
-                        android:layout_width="match_parent"
-                        android:layout_height="80dp"
-                        android:layout_below="@+id/orgName3"
-                        android:layout_marginTop="12dp"
-                        android:background="@android:color/transparent"
-                        android:text="Description of the food bank blah blah blah blah blah blah blah blah blah blah blah blah"
-                        android:textColor="@color/black"
-                        android:textSize="16sp" />
-
-                    <Button
-                        android:id="@+id/website3"
-                        android:layout_width="160dp"
-                        android:layout_height="55dp"
-                        android:layout_alignParentBottom="true"
-                        android:layout_alignParentStart="true"
-                        android:layout_marginTop="4dp"
-                        android:background="@android:color/transparent"
-                        android:text="@string/card_website" />
-
-                    <Button
-                        android:id="@+id/address3"
-                        android:layout_width="160dp"
-                        android:layout_height="55dp"
-                        android:layout_alignParentBottom="true"
-                        android:layout_alignParentEnd="true"
-                        android:layout_marginTop="4dp"
-                        android:background="@android:color/transparent"
-                        android:text="@string/card_address" />
-
-                </RelativeLayout>
-            </android.support.v7.widget.CardView>
-
-            <android.support.v7.widget.CardView
-                android:id="@+id/foodBankCardView4"
-                android:layout_width="match_parent"
-                android:layout_height="190sp"
-                android:layout_marginBottom="8dp"
-                android:layout_marginTop="8dp"
-                app:cardUseCompatPadding="true"
-                app:elevation="2dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
-
-                <RelativeLayout
-                    android:id="@+id/cardRelativeLayout4"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <TextView
-                        android:id="@+id/orgName4"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentTop="true"
-                        android:layout_centerHorizontal="true"
-                        android:layout_marginTop="8dp"
-                        android:text="Food Bank Name"
-                        android:textColor="@color/black"
-                        android:textSize="22sp" />
-
-                    <TextView
-                        android:id="@+id/description4"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@+id/orgName4"
-                        android:layout_marginTop="12dp"
-                        android:background="@android:color/transparent"
-                        android:text="Description of the food bank blah blah blah blah blah blah blah blah blah blah blah blah"
-                        android:textColor="@color/black"
-                        android:textSize="16sp" />
-
-                    <Button
-                        android:id="@+id/website4"
-                        android:layout_width="160dp"
-                        android:layout_height="55dp"
-                        android:layout_alignParentBottom="true"
-                        android:layout_alignParentStart="true"
-                        android:layout_marginTop="4dp"
-                        android:background="@android:color/transparent"
-                        android:text="@string/card_website" />
-
-                    <Button
-                        android:id="@+id/address4"
-                        android:layout_width="160dp"
-                        android:layout_height="55dp"
-                        android:layout_alignParentBottom="true"
-                        android:layout_alignParentEnd="true"
-                        android:layout_marginTop="4dp"
-                        android:background="@android:color/transparent"
-                        android:text="@string/card_address" />
-
-                </RelativeLayout>
-            </android.support.v7.widget.CardView>
-
-            <android.support.v7.widget.CardView
-                android:id="@+id/foodBankCardView5"
-                android:layout_width="match_parent"
-                android:layout_height="190sp"
-                android:layout_marginBottom="8dp"
-                android:layout_marginTop="8dp"
-                app:cardUseCompatPadding="true"
-                app:elevation="2dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
-
-                <RelativeLayout
-                    android:id="@+id/cardRelativeLayout5"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <TextView
-                        android:id="@+id/orgName5"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentTop="true"
-                        android:layout_centerHorizontal="true"
-                        android:layout_marginTop="8dp"
-                        android:text="Food Bank Name"
-                        android:textColor="@color/black"
-                        android:textSize="22sp" />
-
-                    <TextView
-                        android:id="@+id/description5"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentStart="true"
-                        android:layout_below="@+id/orgName5"
-                        android:layout_marginTop="13dp"
-                        android:background="@android:color/transparent"
-                        android:text="Description of the food bank blah blah blah blah blah blah blah blah blah blah blah blah"
-                        android:textColor="@color/black"
-                        android:textSize="16sp" />
-
-                    <Button
-                        android:id="@+id/website5"
-                        android:layout_width="160dp"
-                        android:layout_height="55dp"
-                        android:layout_alignParentBottom="true"
-                        android:layout_alignParentStart="true"
-                        android:layout_marginTop="4dp"
-                        android:background="@android:color/transparent"
-                        android:text="@string/card_website" />
-
-                    <Button
-                        android:id="@+id/address5"
-                        android:layout_width="160dp"
-                        android:layout_height="55dp"
-                        android:layout_alignParentBottom="true"
-                        android:layout_alignParentEnd="true"
-                        android:layout_marginTop="4dp"
-                        android:background="@android:color/transparent"
-                        android:text="@string/card_address" />
-
-                </RelativeLayout>
-            </android.support.v7.widget.CardView>
-
-
-        </LinearLayout>
-    </ScrollView>
-</android.support.constraint.ConstraintLayout>
+</android.support.design.widget.CoordinatorLayout>

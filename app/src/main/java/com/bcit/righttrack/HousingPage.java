@@ -96,11 +96,11 @@ public class HousingPage extends Fragment {
                 map = mMap;
 
                 // For dropping a marker at a point on the Map
-                LatLng sydney = new LatLng(49.203496743701606, -122.90963686974206);
-                map.addMarker(new MarkerOptions().position(sydney).title("Marker Title").snippet("Marker Description"));
+                LatLng startingPoint = new LatLng(49.203496743701606, -122.90963686974206);
+                map.addMarker(new MarkerOptions().position(startingPoint).title("Marker Title").snippet("Marker Description"));
 
                 // For zooming automatically to the location of the marker
-                CameraPosition cameraPosition = new CameraPosition.Builder().target(sydney).zoom(12).build();
+                CameraPosition cameraPosition = new CameraPosition.Builder().target(startingPoint).zoom(11).build();
                 map.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
             }
         });

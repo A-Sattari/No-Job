@@ -1,28 +1,21 @@
 package com.bcit.righttrack;
 
-import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.TextView;
-
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
-
 import java.util.ArrayList;
-import java.util.Arrays;
 
 /**
  *
@@ -89,10 +82,7 @@ public class MainActivity
         // Create and run async task, and get information from open datasets
         DownloadAsyncTask async = new DownloadAsyncTask();
         async.execute(FOOD_BANK_URL, EMPLOYMENT_SERVICES_URL);
-
-
     }
-
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -223,7 +213,7 @@ public class MainActivity
             descriptionArrayFoodBank.add(description);
             websiteArrayFoodBank.add(website);
             addressArrayFoodBank.add(address);
-            Log.wtf(TAG, nameArrayFoodBank.get(0));
+            Log.i(TAG, nameArrayFoodBank.get(0));
         }
     }
 
