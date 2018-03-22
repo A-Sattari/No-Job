@@ -95,20 +95,19 @@ public class HousingPage extends Fragment {
             public void onMapReady(GoogleMap mMap) {
                 map = mMap;
 
-                for (int i = 0; i < MainActivity.latitudeArrayHousing.size(); i++) {
-                    LatLng marker = new LatLng(Double.parseDouble(MainActivity.latitudeArrayHousing.get(i)),
+                LatLng marker = new LatLng(Double.parseDouble(MainActivity.latitudeArrayHousing.get(0)),
+                                           Double.parseDouble((MainActivity.longitudeArrayHousing.get(0))));
+
+                for (int i = 1; i < MainActivity.latitudeArrayHousing.size(); i++) {
+                    marker = new LatLng(Double.parseDouble(MainActivity.latitudeArrayHousing.get(i)),
                                                Double.parseDouble(MainActivity.longitudeArrayHousing.get(i)));
                     map.addMarker(new MarkerOptions().position(marker).title(MainActivity.nameArrayHousing.get(i))
                                                                       .snippet(MainActivity.descriptionArrayHousing.get(i)));
 
                 }
 
-                // For dropping a marker at a point on the Map
-                LatLng sydney = new LatLng(49.203496743701606, -122.90963686974206);
-                map.addMarker(new MarkerOptions().position(sydney).title("Marker Title").snippet("Marker Description"));
-
                 // For zooming automatically to the location of the marker
-                CameraPosition cameraPosition = new CameraPosition.Builder().target(sydney).zoom(12).build();
+                CameraPosition cameraPosition = new CameraPosition.Builder().target(marker).zoom(12).build();
                 map.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
             }
         });
