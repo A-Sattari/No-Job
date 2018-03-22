@@ -9,7 +9,7 @@ public class HousingInfoActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_housing_info);
+        setContentView(R.layout.housing_info);
     }
 
     public void back(View view) {

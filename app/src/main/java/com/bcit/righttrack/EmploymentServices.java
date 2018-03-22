@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -50,8 +51,6 @@ public class EmploymentServices extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
-        /***********/
         if (getArguments() != null) {
             //mParam1 = getArguments().getString(ARG_PARAM1);
             //mParam2 = getArguments().getString(ARG_PARAM2);
@@ -61,16 +60,20 @@ public class EmploymentServices extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
+        /*****/
+        ArrayList<String> website = new ArrayList<>();   website.add("http://www.google.com"); website.add("http://www.microsoft.com");
+        ArrayList<String> latY = new ArrayList<>(); latY.add("49.202471261180655"); latY.add("49.203235896852874");
+        ArrayList<String> longX = new ArrayList<>(); longX.add("-122.90995207229413"); longX.add("-122.94926011127286");
+        /*****/
         View rootView = inflater.inflate(R.layout.employment_services_page, container, false);
 
         // Gets the recycler view created in the employment_services_page.xml
         rcView = rootView.findViewById(R.id.recyclerView);
         rcLayoutManager = new LinearLayoutManager(getActivity());
-        rcAdapter = new EsRecyclerViewAdapter(); // Custom Recycler Adaptor Class
+        rcAdapter = new EsRecyclerViewAdapter(getContext(), website, latY, longX); // Custom Recycler Adaptor Class
         rcView.setHasFixedSize(true);
         rcView.setLayoutManager(rcLayoutManager);
         rcView.setAdapter(rcAdapter);
-        // TODO: Add rounded corners to each card
         return rootView;
     }
 
@@ -113,4 +116,5 @@ public class EmploymentServices extends Fragment {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
+
 }
