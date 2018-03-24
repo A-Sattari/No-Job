@@ -38,11 +38,16 @@ public class MainActivity
     // Declaring Fragment objects
     private FragmentTransaction ft;
     private Fragment currentFragment;
+
+    // Arrays containing Food Bank Data
     public static ArrayList<String> nameArrayFoodBank;
     public static ArrayList<String> descriptionArrayFoodBank;
     public static ArrayList<String> websiteArrayFoodBank;
     public static ArrayList<String> addressArrayFoodBank;
+    public static ArrayList<String> phoneArrayFoodBank;
+    public static ArrayList<double[]> coordinateArrayFoodBank;
 
+    // Arrays containing Employment data
     public static ArrayList<String> nameArrayEmployment;
     public static ArrayList<String> descriptionArrayEmployment;
     public static ArrayList<String> websiteArrayEmployment;
@@ -62,6 +67,8 @@ public class MainActivity
         descriptionArrayFoodBank = new ArrayList<String>();
         websiteArrayFoodBank = new ArrayList<String>();
         addressArrayFoodBank = new ArrayList<String>();
+        phoneArrayFoodBank = new ArrayList<String>();
+        coordinateArrayFoodBank = new ArrayList<double[]>();
 
         // Initializing arrays containing employment services information
         nameArrayEmployment = new ArrayList<String>();
@@ -80,8 +87,10 @@ public class MainActivity
 //        downloadFoodBankInfo();
 
         // Create and run async task, and get information from open datasets
-        DownloadAsyncTask async = new DownloadAsyncTask();
-        async.execute(FOOD_BANK_URL, EMPLOYMENT_SERVICES_URL);
+        downloadEmployment(EMPLOYMENT_SERVICES_URL);
+        downloadFoodBank(FOOD_BANK_URL);
+//        DownloadAsyncTask async = new DownloadAsyncTask();
+//        async.execute(FOOD_BANK_URL, EMPLOYMENT_SERVICES_URL);
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
@@ -164,6 +173,42 @@ public class MainActivity
 //        }
     }
 
+    public void downloadFoodBank(String pUrl) {
+        Ion.with(MainActivity.this).
+                load(pUrl).
+                asJsonObject().
+                setCallback(
+                        new FutureCallback<JsonObject>() {
+                            @Override
+                            public void onCompleted(Exception e, JsonObject result) {
+                                if (e == null) {
+                                    downloadFoodBankInfoSuccess(result);
+                                } else {
+                                    downloadError(e);
+                                }
+                            }
+                        }
+                );
+    }
+
+    public void downloadEmployment(String pUrl) {
+        Ion.with(MainActivity.this).
+                load(pUrl).
+                asJsonObject().
+                setCallback(
+                        new FutureCallback<JsonObject>() {
+                            @Override
+                            public void onCompleted(Exception e, JsonObject result) {
+                                if (e == null) {
+                                    downloadEmploymentInfoSuccess(result);;
+                                } else {
+                                    downloadError(e);
+                                }
+                            }
+                        }
+                );
+    }
+
     // Responsible for extracting JSON infor for card views (Food Bank and Employment pages)
     public void cardDownload(String pUrl, final int sourceData) {
         Ion.with(MainActivity.this).
@@ -196,23 +241,40 @@ public class MainActivity
 
         for (final JsonElement element: places) {
             final JsonObject feature;
+            // Properties
             final JsonObject properties;
             final String name;
             final String description;
             final String website;
             final String address;
+            final String phone;
+            // Geoemtry
+            final JsonObject geometry;
+            final JsonArray coordinatesJSON;
+            final double[] coordinates = new double[2];
 
+            // Properties
             feature = element.getAsJsonObject();
             properties = feature.getAsJsonObject("properties");
             name        = properties.get("Name").getAsString();
             description = properties.get("Description").getAsString();
             website = properties.get("Website").getAsString().toLowerCase();
             address = properties.get("Location").getAsString();
+            phone = properties.get("Phone").getAsString();
+
+            // Geometry
+            geometry = feature.getAsJsonObject("geometry");
+            coordinatesJSON = geometry.getAsJsonArray("coordinates");
+            coordinates[0] = coordinatesJSON.get(0).getAsDouble();
+            coordinates[1] = coordinatesJSON.get(1).getAsDouble();
+
 
             nameArrayFoodBank.add(name);
             descriptionArrayFoodBank.add(description);
             websiteArrayFoodBank.add(website);
             addressArrayFoodBank.add(address);
+            coordinateArrayFoodBank.add(coordinates);
+            phoneArrayFoodBank.add(phone);
             Log.i(TAG, nameArrayFoodBank.get(0));
         }
     }
