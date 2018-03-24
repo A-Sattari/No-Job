@@ -52,6 +52,8 @@ public class MainActivity
     public static ArrayList<String> descriptionArrayEmployment;
     public static ArrayList<String> websiteArrayEmployment;
     public static ArrayList<String> addressArrayEmployment;
+    public static ArrayList<String> coordinateLatArrayEmployment;
+    public static ArrayList<String> coordinateLngArrayEmployment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,6 +77,8 @@ public class MainActivity
         descriptionArrayEmployment = new ArrayList<String>();
         websiteArrayEmployment = new ArrayList<String>();
         addressArrayEmployment = new ArrayList<String>();
+        coordinateLatArrayEmployment = new ArrayList<String>();
+        coordinateLngArrayEmployment = new ArrayList<String>();
 
         // Setting the current fragment to the Home Page fragment upon startup
         currentFragment = new HomePage();
@@ -292,6 +296,10 @@ public class MainActivity
             final String website;
             final String address;
 
+            final JsonObject geometry;
+            final JsonArray coordinatesJSON;
+            final String[] coordinates = new String[2];
+
             feature = element.getAsJsonObject();
             properties = feature.getAsJsonObject("properties");
             name        = properties.get("Name").getAsString();
@@ -299,10 +307,17 @@ public class MainActivity
             website = properties.get("Website").getAsString();
             address = properties.get("Location").getAsString();
 
+            geometry = feature.getAsJsonObject("geometry");
+            coordinatesJSON = geometry.getAsJsonArray("coordinates");
+            coordinates[0] = coordinatesJSON.get(0).getAsString();
+            coordinates[1] = coordinatesJSON.get(1).getAsString();
+
             nameArrayEmployment.add(name);
             descriptionArrayEmployment.add(description);
             websiteArrayEmployment.add(website);
             addressArrayEmployment.add(address);
+            coordinateLatArrayEmployment.add(coordinates[1]);
+            coordinateLngArrayEmployment.add(coordinates[0]);
             Log.wtf(TAG, name);
         }
     }

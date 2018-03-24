@@ -61,16 +61,23 @@ public class EmploymentServices extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         /*****/
-        ArrayList<String> website = new ArrayList<>();   website.add("http://www.google.com"); website.add("http://www.microsoft.com");
-        ArrayList<String> latY = new ArrayList<>(); latY.add("49.202471261180655"); latY.add("49.203235896852874");
-        ArrayList<String> longX = new ArrayList<>(); longX.add("-122.90995207229413"); longX.add("-122.94926011127286");
+//        ArrayList<String> website = new ArrayList<>();   website.add("http://www.google.com"); website.add("http://www.microsoft.com");
+//        ArrayList<String> latY = new ArrayList<>(); latY.add("49.202471261180655"); latY.add("49.203235896852874");
+//        ArrayList<String> longX = new ArrayList<>(); longX.add("-122.90995207229413"); longX.add("-122.94926011127286");
         /*****/
         View rootView = inflater.inflate(R.layout.employment_services_page, container, false);
 
         // Gets the recycler view created in the employment_services_page.xml
         rcView = rootView.findViewById(R.id.recyclerView);
         rcLayoutManager = new LinearLayoutManager(getActivity());
-        rcAdapter = new EsRecyclerViewAdapter(getContext(), website, latY, longX); // Custom Recycler Adaptor Class
+
+        rcAdapter = new EsRecyclerViewAdapter(getContext(),
+                MainActivity.websiteArrayEmployment,
+                MainActivity.coordinateLatArrayEmployment,
+                MainActivity.coordinateLngArrayEmployment,
+                MainActivity.nameArrayEmployment,
+                MainActivity.descriptionArrayEmployment); // Custom Recycler Adaptor Class
+
         rcView.setHasFixedSize(true);
         rcView.setLayoutManager(rcLayoutManager);
         rcView.setAdapter(rcAdapter);

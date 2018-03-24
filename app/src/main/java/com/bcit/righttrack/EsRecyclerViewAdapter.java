@@ -25,6 +25,8 @@ class EsRecyclerViewAdapter extends RecyclerView.Adapter<EsRecyclerViewAdapter.V
     private ArrayList<String> website;
     private ArrayList<String> latY;
     private ArrayList<String> longX;
+    private ArrayList<String> name;
+    private ArrayList<String> description;
     private Context context;
 
     /**
@@ -35,13 +37,18 @@ class EsRecyclerViewAdapter extends RecyclerView.Adapter<EsRecyclerViewAdapter.V
      * @param x list of longitudes
      */
     protected EsRecyclerViewAdapter(final Context context, /*final HashMap<String, String> nameDesc,*/
-                                    final ArrayList<String> web, final ArrayList<String> y,
-                                    final ArrayList<String> x) {
+                                    final ArrayList<String> web,
+                                    final ArrayList<String> y,
+                                    final ArrayList<String> x,
+                                    final ArrayList<String> pName,
+                                    final ArrayList<String> pDescription) {
         this.context = context;
         //nameDesc = new HashMap<>();
         website = new ArrayList<>(web);
         latY = new ArrayList<>(y);
         longX = new ArrayList<>(x);
+        name = new ArrayList<>(pName);
+        description = new ArrayList<>(pDescription);
     }
 
     @Override
@@ -70,9 +77,9 @@ class EsRecyclerViewAdapter extends RecyclerView.Adapter<EsRecyclerViewAdapter.V
         final Uri webAddress = Uri.parse(url);
 
 
-        holder.orgName.setText("Service Canada Centre " + holder.getAdapterPosition());
+        holder.orgName.setText(name.get(holder.getAdapterPosition()));
         // The MAX length can be shown properly
-        holder.description.setText("Job training opportunities are available for work in restaurants, retail stores, and landscaping.");
+        holder.description.setText(description.get(holder.getAdapterPosition()));
 
         // Address button listener
         holder.addressButton.setOnClickListener(new View.OnClickListener() {
