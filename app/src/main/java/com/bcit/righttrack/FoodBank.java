@@ -138,17 +138,22 @@ public class FoodBank extends Fragment {
             @Override
             public void onMapReady(GoogleMap mMap) {
                 gMap = mMap;
+                LatLng defaultViewPoint = new LatLng(49.203496743701606, -122.90963686974206);
+                //
+                for (int i = 0; i < MainActivity.nameArrayFoodBank.size(); i++) {
+                    // Declare information for markers
+                    double lng = MainActivity.coordinateArrayFoodBank.get(i)[0];
+                    double lat = MainActivity.coordinateArrayFoodBank.get(i)[1];
+                    String locationName = MainActivity.nameArrayFoodBank.get(i);
+                    String locationPhoneNumber = MainActivity.phoneArrayFoodBank.get(i);
 
-                // For dropping a marker at a point on the Map
-                LatLng location = new LatLng(49.203496743701606, -122.90963686974206);
-                LatLng location2 = new LatLng(49.22491835146481, -122.91048369358666);
-                LatLng location3 = new LatLng(49.21491835146481, -122.91048369358666);
-                gMap.addMarker(new MarkerOptions().position(location).title("Holy Trinity Anglican Cathedral - Breakfast Program").snippet("(604)521-2511"));
-                gMap.addMarker(new MarkerOptions().position(location2).title("Marker2 Title").snippet("(604)521-2511"));
-                gMap.addMarker(new MarkerOptions().position(location3).title("Marker3 Title").snippet("(604)517-6168"));
+                    // Create marker and place on map
+                    LatLng location = new LatLng(lat, lng);
+                    gMap.addMarker(new MarkerOptions().position(location).title(locationName).snippet(locationPhoneNumber));
+                }
 
                 // For zooming automatically to the location of the marker
-                CameraPosition cameraPosition = new CameraPosition.Builder().target(location).zoom(12).build();
+                CameraPosition cameraPosition = new CameraPosition.Builder().target(defaultViewPoint).zoom(12).build();
                 gMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
 
                 // Marker click listener
