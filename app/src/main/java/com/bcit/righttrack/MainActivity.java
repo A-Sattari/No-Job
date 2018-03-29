@@ -44,16 +44,24 @@ public class MainActivity
     // Declaring Fragment objects
     private FragmentTransaction ft;
     private Fragment currentFragment;
+
+    // Arrays containing Food Bank Data
     public static ArrayList<String> nameArrayFoodBank;
     public static ArrayList<String> descriptionArrayFoodBank;
     public static ArrayList<String> websiteArrayFoodBank;
     public static ArrayList<String> addressArrayFoodBank;
+    public static ArrayList<String> phoneArrayFoodBank;
+    public static ArrayList<double[]> coordinateArrayFoodBank;
 
+    // Arrays containing Employment data
     public static ArrayList<String> nameArrayEmployment;
     public static ArrayList<String> descriptionArrayEmployment;
     public static ArrayList<String> websiteArrayEmployment;
     public static ArrayList<String> addressArrayEmployment;
+    public static ArrayList<String> coordinateLatArrayEmployment;
+    public static ArrayList<String> coordinateLngArrayEmployment;
 
+    // Arrays containing Housing data
     public static ArrayList<String> nameArrayHousing;
     public static ArrayList<String> descriptionArrayHousing;
     public static ArrayList<String> hoursArrayHousing;
@@ -75,12 +83,16 @@ public class MainActivity
         descriptionArrayFoodBank = new ArrayList<String>();
         websiteArrayFoodBank = new ArrayList<String>();
         addressArrayFoodBank = new ArrayList<String>();
+        phoneArrayFoodBank = new ArrayList<String>();
+        coordinateArrayFoodBank = new ArrayList<double[]>();
 
         // Initializing arrays containing employment services information
         nameArrayEmployment = new ArrayList<String>();
         descriptionArrayEmployment = new ArrayList<String>();
         websiteArrayEmployment = new ArrayList<String>();
         addressArrayEmployment = new ArrayList<String>();
+        coordinateLatArrayEmployment = new ArrayList<String>();
+        coordinateLngArrayEmployment = new ArrayList<String>();
 
         // Initializing arrays containing non market and coop housing information
         nameArrayHousing = new ArrayList<>();
@@ -101,9 +113,12 @@ public class MainActivity
 //        downloadFoodBankInfo();
 
         // Create and run async task, and get information from open datasets
+
+        downloadEmployment(EMPLOYMENT_SERVICES_URL);
+        downloadFoodBank(FOOD_BANK_URL);
+        downloadHousing(HOUSING_URL);
         DownloadAsyncTask async = new DownloadAsyncTask();
         async.execute(FOOD_BANK_URL, EMPLOYMENT_SERVICES_URL, HOUSING_URL);
-
 
     }
 
@@ -188,7 +203,65 @@ public class MainActivity
 //        }
     }
 
+
     // Responsible for extracting JSON info for card views (Food Bank and Employment pages)
+
+    public void downloadFoodBank(String pUrl) {
+        Ion.with(MainActivity.this).
+                load(pUrl).
+                asJsonObject().
+                setCallback(
+                        new FutureCallback<JsonObject>() {
+                            @Override
+                            public void onCompleted(Exception e, JsonObject result) {
+                                if (e == null) {
+                                    downloadFoodBankInfoSuccess(result);
+                                } else {
+                                    downloadError(e);
+                                }
+                            }
+                        }
+                );
+    }
+
+    public void downloadEmployment(String pUrl) {
+        Ion.with(MainActivity.this).
+                load(pUrl).
+                asJsonObject().
+                setCallback(
+                        new FutureCallback<JsonObject>() {
+                            @Override
+                            public void onCompleted(Exception e, JsonObject result) {
+                                if (e == null) {
+                                    downloadEmploymentInfoSuccess(result);;
+                                } else {
+                                    downloadError(e);
+                                }
+                            }
+                        }
+                );
+    }
+
+    public void downloadHousing(String pUrl) {
+        Ion.with(MainActivity.this).
+                load(pUrl).
+                asJsonObject().
+                setCallback(
+                        new FutureCallback<JsonObject>() {
+                            @Override
+                            public void onCompleted(Exception e, JsonObject result) {
+                                if (e == null) {
+                                    downloadHousingInfoSuccess(result);;
+                                } else {
+                                    downloadError(e);
+                                }
+                            }
+                        }
+                );
+    }
+
+    // Responsible for extracting JSON infor for card views (Food Bank and Employment pages)
+
     public void cardDownload(String pUrl, final int sourceData) {
         Ion.with(MainActivity.this).
                 load(pUrl).
@@ -222,24 +295,42 @@ public class MainActivity
 
         for (final JsonElement element: places) {
             final JsonObject feature;
+            // Properties
             final JsonObject properties;
             final String name;
             final String description;
             final String website;
             final String address;
+            final String phone;
+            // Geoemtry
+            final JsonObject geometry;
+            final JsonArray coordinatesJSON;
+            final double[] coordinates = new double[2];
 
+            // Properties
             feature = element.getAsJsonObject();
             properties = feature.getAsJsonObject("properties");
             name        = properties.get("Name").getAsString();
             description = properties.get("Description").getAsString();
             website = properties.get("Website").getAsString().toLowerCase();
             address = properties.get("Location").getAsString();
+            phone = properties.get("Phone").getAsString();
+
+            // Geometry
+            geometry = feature.getAsJsonObject("geometry");
+            coordinatesJSON = geometry.getAsJsonArray("coordinates");
+            coordinates[0] = coordinatesJSON.get(0).getAsDouble();
+            coordinates[1] = coordinatesJSON.get(1).getAsDouble();
+
 
             nameArrayFoodBank.add(name);
             descriptionArrayFoodBank.add(description);
             websiteArrayFoodBank.add(website);
             addressArrayFoodBank.add(address);
-            Log.wtf(TAG, nameArrayFoodBank.get(0));
+            coordinateArrayFoodBank.add(coordinates);
+            phoneArrayFoodBank.add(phone);
+            Log.i(TAG, nameArrayFoodBank.get(0));
+
         }
     }
 
@@ -256,6 +347,10 @@ public class MainActivity
             final String website;
             final String address;
 
+            final JsonObject geometry;
+            final JsonArray coordinatesJSON;
+            final String[] coordinates = new String[2];
+
             feature = element.getAsJsonObject();
             properties = feature.getAsJsonObject("properties");
             name        = properties.get("Name").getAsString();
@@ -263,10 +358,17 @@ public class MainActivity
             website = properties.get("Website").getAsString();
             address = properties.get("Location").getAsString();
 
+            geometry = feature.getAsJsonObject("geometry");
+            coordinatesJSON = geometry.getAsJsonArray("coordinates");
+            coordinates[0] = coordinatesJSON.get(0).getAsString();
+            coordinates[1] = coordinatesJSON.get(1).getAsString();
+
             nameArrayEmployment.add(name);
             descriptionArrayEmployment.add(description);
             websiteArrayEmployment.add(website);
             addressArrayEmployment.add(address);
+            coordinateLatArrayEmployment.add(coordinates[1]);
+            coordinateLngArrayEmployment.add(coordinates[0]);
             Log.wtf(TAG, name);
         }
     }
