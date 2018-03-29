@@ -18,7 +18,11 @@ import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+
+import java.util.HashMap;
+import java.util.Map;
 
 
 /**
@@ -41,6 +45,7 @@ public class HousingPage extends Fragment {
     private View view2;
     private MapView mapView;
     private GoogleMap map;
+    
 
     private OnFragmentInteractionListener mListener;
 
@@ -94,26 +99,35 @@ public class HousingPage extends Fragment {
             @Override
             public void onMapReady(GoogleMap mMap) {
                 map = mMap;
-
+                Marker mapMarker;
                 LatLng marker = new LatLng(Double.parseDouble(MainActivity.latitudeArrayHousing.get(0)),
                                            Double.parseDouble((MainActivity.longitudeArrayHousing.get(0))));
 
-                for (int i = 1; i < MainActivity.latitudeArrayHousing.size(); i++) {
+                for (int i = 0; i < MainActivity.latitudeArrayHousing.size(); i++) {
                     marker = new LatLng(Double.parseDouble(MainActivity.latitudeArrayHousing.get(i)),
                                                Double.parseDouble(MainActivity.longitudeArrayHousing.get(i)));
-                    map.addMarker(new MarkerOptions().position(marker).title(MainActivity.nameArrayHousing.get(i))
-                                                                      .snippet(MainActivity.descriptionArrayHousing.get(i)));
-
+                    mapMarker = map.addMarker(new MarkerOptions().position(marker));
+                    mapMarker.setTag(i);
                 }
 
                 // For zooming automatically to the location of the marker
                 CameraPosition cameraPosition = new CameraPosition.Builder().target(marker).zoom(12).build();
                 map.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+                GoogleMap.OnMarkerClickListener onMarkerClickListener = new GoogleMap.OnMarkerClickListener() {
+                    @Override
+                    public boolean onMarkerClick(Marker marker) {
+                        goToURL(MainActivity.websiteArrayHousing.get((int) marker.getTag()));
+                        return false;
+                    }
+                };
+                map.setOnMarkerClickListener(onMarkerClickListener);
             }
         });
 
         return view2;
     }
+
+
 
     @Override
     public void onResume() {
@@ -138,9 +152,6 @@ public class HousingPage extends Fragment {
         super.onLowMemory();
         mapView.onLowMemory();
     }
-
-
-
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
@@ -179,5 +190,11 @@ public class HousingPage extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
+    }
+
+    private void goToURL(String url) {
+        Uri uriUrl = Uri.parse(url);
+        Intent launchBrowser = new Intent(Intent.ACTION_VIEW, uriUrl);
+        startActivity(launchBrowser);
     }
 }

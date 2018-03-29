@@ -59,6 +59,7 @@ public class MainActivity
     public static ArrayList<String> hoursArrayHousing;
     public static ArrayList<String> longitudeArrayHousing;
     public static ArrayList<String> latitudeArrayHousing;
+    public static ArrayList<String> websiteArrayHousing;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,6 +88,7 @@ public class MainActivity
         hoursArrayHousing = new ArrayList<>();
         longitudeArrayHousing = new ArrayList<>();
         latitudeArrayHousing = new ArrayList<>();
+        websiteArrayHousing = new ArrayList<>();
 
         // Setting the current fragment to the Home Page fragment upon startup
         currentFragment = new HomePage();
@@ -282,6 +284,7 @@ public class MainActivity
             final String hours;
             final String latitude;
             final String longitude;
+            final String website;
 
             feature = jsonElement.getAsJsonObject();
             properties = feature.getAsJsonObject("properties");
@@ -290,13 +293,14 @@ public class MainActivity
             hours = properties.get("Hours").getAsString();
             latitude = properties.get("Y").getAsString();
             longitude = properties.get("X").getAsString();
+            website = properties.get("Website").getAsString();
 
             nameArrayHousing.add(name);
             descriptionArrayHousing.add(description);
             hoursArrayHousing.add(hours);
             latitudeArrayHousing.add(latitude);
             longitudeArrayHousing.add(longitude);
-
+            websiteArrayHousing.add(website);
 
         }
 
