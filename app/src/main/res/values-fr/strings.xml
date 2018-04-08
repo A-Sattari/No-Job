@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">Right Track</string>
+    <string name="home_tab">Page D\'accueil</string>
+
+    <string name="google_maps_api_key">AIzaSyAXEUWGH6G6ap9tDJQRt_tLWRgk0vr-fr0</string>
+    <string name="card_website">site web</string>
+    <string name="card_address">Adresse</string>
+    <string name="phone">téléphone</string>
+    <string name="direction">Direction</string>
+
+    <string name="es_tab">Services L\'emploi</string>
+    <string name="es_description"></string>
+
+    <string name="food_tab">Banque alimentaire</string>
+    <string name="fb_description"></string>
+
+    <string name="housing_tab">Logement</string>
+    <string name="housing_description"></string>
+
+</resources>
