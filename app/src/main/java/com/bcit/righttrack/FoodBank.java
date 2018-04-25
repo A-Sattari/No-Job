@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -138,8 +139,11 @@ public class FoodBank extends Fragment {
             @Override
             public void onMapReady(GoogleMap mMap) {
                 gMap = mMap;
-                LatLng defaultViewPoint = new LatLng(49.203496743701606, -122.90963686974206);
-                //
+
+                LatLng defaultViewPoint = new LatLng(MainActivity.coordinateArrayFoodBank.get(0)[0],
+                        MainActivity.coordinateArrayFoodBank.get(0)[0]);
+
+                // For dropping a marker at a point on the Map
                 for (int i = 0; i < MainActivity.nameArrayFoodBank.size(); i++) {
                     // Declare information for markers
                     double lng = MainActivity.coordinateArrayFoodBank.get(i)[0];
@@ -152,7 +156,7 @@ public class FoodBank extends Fragment {
                     gMap.addMarker(new MarkerOptions().position(location).title(locationName).snippet(locationPhoneNumber));
                 }
 
-                // For zooming automatically to the location of the marker
+                // Default zooming location
                 CameraPosition cameraPosition = new CameraPosition.Builder().target(defaultViewPoint).zoom(12).build();
                 gMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
 
@@ -161,7 +165,6 @@ public class FoodBank extends Fragment {
                 // Map click listener
                 mapOnClickListener();
             }
-
         });
     }
 
@@ -171,9 +174,10 @@ public class FoodBank extends Fragment {
     private void markerOnClickListener() {
 
         gMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+
             @Override
-            public boolean onMarkerClick(Marker marker) {
-                marker.hideInfoWindow();
+            public boolean onMarkerClick(final Marker marker) {
+                marker.hideInfoWindow();    // Doesn't work because of return value
 
                 // If the marker wasn't click, change its color
                 if (previousMarker == null) {
@@ -192,7 +196,11 @@ public class FoodBank extends Fragment {
                 directionButtonListener(directionButton, 49.203496743701606, -122.90963686974206);
                 phoneButtonListener(phoneButton, marker.getSnippet());
 
-                return true;
+                /*
+                * true if the listener has consumed the event (the default behavior should not occur); false otherwise
+                * (the default behavior should occur). The default behavior is for the camera to move to the marker and an info window to appear.
+                */
+                return false;
             }
         });
     }
@@ -205,12 +213,12 @@ public class FoodBank extends Fragment {
         gMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
             @Override
             public void onMapClick(LatLng latLng) {
-
                 bottomSheetBehavior.setHideable(true);
                 bottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
                 // Resets the marker color when user clicks on the map
-                if (previousMarker != null)
+                if (previousMarker != null) {
                     previousMarker.setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
+                }
             }
         });
     }
