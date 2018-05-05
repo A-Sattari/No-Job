@@ -77,6 +77,9 @@ public class HomePage extends Fragment {
         }
     }
 
+    /**
+     * Called when the fragment has been associated with the activity (the Activity is passed in here).
+     */
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);

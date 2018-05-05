@@ -5,15 +5,13 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.TextView;
-
+import com.bcit.righttrack.housingPage.HousingMap;
+import com.bcit.righttrack.housingPage.HousingPage;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -21,7 +19,6 @@ import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 /**
  *
@@ -32,7 +29,7 @@ public class MainActivity
         extends AppCompatActivity
         implements FoodBank.OnFragmentInteractionListener,
                    HomePage.OnFragmentInteractionListener,
-                   HousingPage.OnFragmentInteractionListener,
+                   HousingMap.OnFragmentInteractionListener,
                    EmploymentServices.OnFragmentInteractionListener{
 
     private static final String TAG = MainActivity.class.getName();
@@ -233,7 +230,7 @@ public class MainActivity
                             @Override
                             public void onCompleted(Exception e, JsonObject result) {
                                 if (e == null) {
-                                    downloadEmploymentInfoSuccess(result);;
+                                    downloadEmploymentInfoSuccess(result);
                                 } else {
                                     downloadError(e);
                                 }
@@ -251,7 +248,7 @@ public class MainActivity
                             @Override
                             public void onCompleted(Exception e, JsonObject result) {
                                 if (e == null) {
-                                    downloadHousingInfoSuccess(result);;
+                                    downloadHousingInfoSuccess(result);
                                 } else {
                                     downloadError(e);
                                 }

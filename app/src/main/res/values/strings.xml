@@ -17,4 +17,13 @@
     <string name="housing_tab">Housing</string>
     <string name="housing_description">Find affordable housing in New Westminster</string>
 
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_test">Test</string>
+    <string name="action_settings">Settings</string>
+    <string name="section_format">Hello World from section: %1$d</string>
+
+    <!-- Housing page tabs -->
+    <string name="map_tab">Map</string>
+    <string name="list_tab">List</string>
+
 </resources>

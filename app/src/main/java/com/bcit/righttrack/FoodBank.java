@@ -26,7 +26,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 /**
  *
- * @author Alireza
+ * @author Alireza Sattari
  */
 public class FoodBank extends Fragment {
 
@@ -46,6 +46,7 @@ public class FoodBank extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        // The container is the parent ViewGroup (from the activity's layout) in which your fragment layout is inserted.
 
         // Inflate the layout for this fragment
         final View foodBankView = inflater.inflate(R.layout.food_bank, container, false);
@@ -140,11 +141,11 @@ public class FoodBank extends Fragment {
             public void onMapReady(GoogleMap mMap) {
                 gMap = mMap;
 
-                LatLng defaultViewPoint = new LatLng(MainActivity.coordinateArrayFoodBank.get(0)[0],
+                LatLng defaultViewPoint = new LatLng(MainActivity.coordinateArrayFoodBank.get(0)[1],
                         MainActivity.coordinateArrayFoodBank.get(0)[0]);
 
                 // For dropping a marker at a point on the Map
-                for (int i = 0; i < MainActivity.nameArrayFoodBank.size(); i++) {
+                for (int i = 0; i < 25; i++) {
                     // Declare information for markers
                     double lng = MainActivity.coordinateArrayFoodBank.get(i)[0];
                     double lat = MainActivity.coordinateArrayFoodBank.get(i)[1];
