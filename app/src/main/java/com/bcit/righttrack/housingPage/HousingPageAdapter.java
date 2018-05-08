@@ -15,9 +15,9 @@ class HousingPageAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
         switch (position) {
             case 0:
-                return new HousingMap();
-            case 1:
                 return new HousingList();
+            case 1:
+                return new HousingMap();
         }
 
         return null;

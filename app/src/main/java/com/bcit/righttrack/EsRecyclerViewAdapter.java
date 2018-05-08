@@ -116,6 +116,7 @@ class EsRecyclerViewAdapter extends RecyclerView.Adapter<EsRecyclerViewAdapter.V
     }
 
     /**
+     * The views in the list are represented by view holder objects.
      * View Holder class. I will be used along the Recycler View Adapter to to display data in the
      * Recycler View. Basically we declare the elements of the view that will be placed in our recycler
      * view. In our case it is the Card View.
