@@ -4,9 +4,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import com.bcit.righttrack.R;
-import java.util.List;
 
 /**
  * Custom Recycler View Adapter for housing list. The adapter is the piece that will
@@ -17,39 +17,51 @@ public class HousingListRecyclerViewAdapter extends RecyclerView.Adapter<Housing
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.housing_item, parent, false);
-        return new ViewHolder(view);
+        // Getting the root view in housing_item.xml
+        View housingItem = LayoutInflater.from(parent.getContext()).inflate(R.layout.housing_item, parent, false);
+        // Returns an instance of the View Holder class
+        return new ViewHolder(housingItem);
     }
 
+    /*
+     * Called by RecyclerView to display the data at the specified position. This method should
+     * update the contents of each linea item in the list to reflect the item at the given position.
+     * Basically, we can initialize the element and views that we declared in the view holder.
+     * @position: It is the position of the thing you are showing, in our case it is the cards
+     */
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
 
-        holder.mView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
-            }
-        });
     }
 
     @Override
-    public int getItemCount() { return 0; }
+    public int getItemCount() { return 10; }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
-        public final View mView;
-        public final TextView mIdView;
-        public final TextView mContentView;
 
-        public ViewHolder(View view) {
-            super(view);
-            mView = view;
-            mIdView = view.findViewById(R.id.item_number);
-            mContentView = view.findViewById(R.id.content);
+    /**
+     * View Holder class. The views in the list are represented by view holder objects.
+     * I will be used along the Recycler View Adapter to to display data in the
+     * Recycler View. Basically we declare the elements of the view that will be placed in our recycler
+     * view. In our case it is the linear item.
+     */
+    class ViewHolder extends RecyclerView.ViewHolder {
+
+        private TextView title;
+        private TextView address;
+        private ImageView houseImg;
+
+        /**
+         * Constructor
+         * @param item the view that contains the linear item
+         */
+        private ViewHolder(View item) {
+            super(item);
+
+            title = item.findViewById(R.id.title);
+            address = item.findViewById(R.id.address);
+            houseImg = item.findViewById(R.id.houseImage);
         }
 
-        @Override
-        public String toString() {
-            return super.toString() + " '" + mContentView.getText() + "'";
-        }
     }
 }

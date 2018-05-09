@@ -1,9 +1,12 @@
 package com.bcit.righttrack.housingPage;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -19,9 +22,7 @@ public class HousingList extends Fragment {
     private static final String ARG_COLUMN_COUNT = "column-count";
     private int mColumnCount = 1;
     private OnListFragmentInteractionListener mListener;
-    private RecyclerView recyclerView;
-    private RecyclerView.LayoutManager layoutManager;
-    private RecyclerView.Adapter rcAdapter;
+
 
     // Required empty constructor
     public HousingList() {}
@@ -40,8 +41,8 @@ public class HousingList extends Fragment {
         if (context instanceof OnListFragmentInteractionListener) {
             mListener = (OnListFragmentInteractionListener) context;
         } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnListFragmentInteractionListener");
+            /*throw new RuntimeException(context.toString()
+                    + " must implement OnListFragmentInteractionListener");*/
         }
     }
 
@@ -55,15 +56,24 @@ public class HousingList extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
         View root = inflater.inflate(R.layout.housing_list, container, false);
-        recyclerView = root.findViewById(R.id.list);            // Getting recycler view
-        layoutManager = new LinearLayoutManager(getActivity()); // Linear layout manager
-        rcAdapter = new HousingListRecyclerViewAdapter();       // Custom adapter
+
+        RecyclerView recyclerView =
+            root.findViewById(R.id.housingRcView);   // Getting recycler view
+
+        RecyclerView.LayoutManager layoutManager =
+            new LinearLayoutManager(getActivity()); // Linear layout manager
+
+        RecyclerView.Adapter rcAdapter =
+            new HousingListRecyclerViewAdapter();       // Custom adapter
+
+        // Divider line between items in the list
+        DividerItemDecoration dividerItem = new DividerItemDecoration(recyclerView.getContext(),1);
 
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(rcAdapter);
+        recyclerView.addItemDecoration(dividerItem);
 
         return root;
     }
