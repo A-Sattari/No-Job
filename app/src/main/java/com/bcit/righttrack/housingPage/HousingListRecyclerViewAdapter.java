@@ -62,6 +62,5 @@ public class HousingListRecyclerViewAdapter extends RecyclerView.Adapter<Housing
             address = item.findViewById(R.id.address);
             houseImg = item.findViewById(R.id.houseImage);
         }
-
     }
 }

@@ -1,8 +1,6 @@
 package com.bcit.righttrack.housingPage;
 
 import android.content.Context;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -12,6 +10,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 import com.bcit.righttrack.R;
 
 /**
@@ -58,6 +58,8 @@ public class HousingList extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.housing_list, container, false);
 
+        filterDropdownSetup(root);
+
         RecyclerView recyclerView =
             root.findViewById(R.id.housingRcView);   // Getting recycler view
 
@@ -83,6 +85,21 @@ public class HousingList extends Fragment {
     public void onDetach() {
         super.onDetach();
         mListener = null;
+    }
+
+    /**
+     * Setting up the city dropdown filter.
+     * @param root the main view of housing_list.xml
+     */
+    private void filterDropdownSetup(final View root) {
+        String[] cityName = {"Vancouver", "Burnaby", "North Vancouver", "Langley", "Richmond"};
+
+        Spinner cityDropdown = root.findViewById(R.id.cityDropdown);    // Getting the spinner
+
+        // Array adapter that contains name of the cities and specifies the layout to use when the list of choices appears
+        ArrayAdapter<String> dropdownItems = new ArrayAdapter(getContext(), android.R.layout.simple_spinner_dropdown_item, cityName);
+
+        cityDropdown.setAdapter(dropdownItems);
     }
 
     /**

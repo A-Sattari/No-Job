@@ -25,5 +25,6 @@
     <!-- Housing page tabs -->
     <string name="map_tab">Map</string>
     <string name="list_tab">List</string>
+    <string name="area">Select Area:</string>
 
 </resources>
