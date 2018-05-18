@@ -1,8 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<ripple xmlns:android="http://schemas.android.com/apk/res/android"
-    android:color="#bab6b6"> <!-- What color it turns to on press hold -->
+<!-- What color it turns to on press hold. Since we manually set the background, all the
+    press and hold animations disappears so we have so it manually -->
+<!-- We should call this in the in the button configuration :
+    android:background="@drawable/website_address_click_style" -->
 
-    <!-- Background Image -->
-    <item android:drawable="@drawable/website"/>
+<ripple xmlns:android="http://schemas.android.com/apk/res/android"
+    android:color="#e5e5e5">
+
+    <!-- Background -->
+    <item android:drawable="@drawable/round_text_view"/>
+
 </ripple>

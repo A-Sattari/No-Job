@@ -13,8 +13,8 @@
         android:layout_marginEnd="4dp"
         android:layout_marginStart="4dp"
         android:layout_marginTop="8dp"
+        app:cardCornerRadius="8dp"
         app:cardElevation="5dp"
-        app:cardCornerRadius="6dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -28,56 +28,55 @@
 
             <TextView
                 android:id="@+id/orgName"
-                android:textColor="@color/black"
-                android:textAlignment="center"
-                android:layout_width="400dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="8dp"
-                android:layout_marginRight="4dp"
                 android:layout_marginLeft="4dp"
-                android:background="@drawable/round_text_view"
-                android:textSize="22sp" />
+                android:layout_marginRight="4dp"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/adamina"
+                android:textAlignment="center"
+                android:textColor="#001f61"
+                android:textSize="20sp" />
 
             <TextView
                 android:id="@+id/description"
-                android:paddingLeft="6dp"
-                android:paddingRight="4dp"
                 android:layout_width="match_parent"
-                android:layout_height="80dp"
+                android:layout_height="85dp"
                 android:layout_below="@+id/orgName"
+                android:layout_marginBottom="4dp"
                 android:layout_marginLeft="3dp"
                 android:layout_marginRight="3dp"
                 android:layout_marginTop="12dp"
+                android:paddingEnd="4dp"
+                android:paddingStart="6dp"
+                android:textAlignment="textStart"
                 android:textColor="@color/black"
-                android:textSize="17sp" />
+                android:textSize="15sp" />
 
             <Button
                 android:id="@+id/website"
-                android:textColor="@color/white"
-                android:textStyle="bold"
                 android:layout_width="160dp"
-                android:layout_height="50dp"
+                android:layout_height="45dp"
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentStart="true"
                 android:layout_marginTop="4dp"
                 android:background="@drawable/website_address_click_style"
-                android:stateListAnimator="@animator/cardview_buttons_elevation"
-                android:text="@string/card_website" />
+                android:text="@string/card_website"
+                android:textStyle="bold" />
 
             <Button
                 android:id="@+id/address"
-                android:textColor="@color/white"
-                android:textStyle="bold"
                 android:layout_width="160dp"
-                android:layout_height="50dp"
+                android:layout_height="45dp"
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentEnd="true"
                 android:layout_marginTop="4dp"
-                android:background="@drawable/address_button_click_style"
-                android:stateListAnimator="@animator/cardview_buttons_elevation"
-                android:text="@string/card_address" />
+                android:background="@drawable/website_address_click_style"
+                android:text="@string/card_address"
+                android:textColor="@color/black"
+                android:textStyle="bold" />
 
         </RelativeLayout>
     </android.support.v7.widget.CardView>

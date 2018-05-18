@@ -21,14 +21,6 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link HousingMap.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link HousingMap#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class HousingMap extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
@@ -66,7 +58,7 @@ public class HousingMap extends Fragment {
         if (context instanceof OnFragmentInteractionListener) {
             mListener = (OnFragmentInteractionListener) context;
         } else {
-            throw new RuntimeException(context.toString() + " must implement OnFragmentInteractionListener");
+//            throw new RuntimeException(context.toString() + " must implement OnFragmentInteractionListener");
         }
     }
 

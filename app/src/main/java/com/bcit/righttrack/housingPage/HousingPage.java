@@ -1,36 +1,49 @@
 package com.bcit.righttrack.housingPage;
 
 import android.content.Context;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import com.bcit.righttrack.R;
 
 public class HousingPage extends Fragment {
+    private OnFragmentInteractionListener mListener;
 
     // Required empty public constructor
     public HousingPage() {}
 
     @Override
-    public void onAttach(Context context) { super.onAttach(context); }
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        Log.i("Here", "on Attach");
+        if (context instanceof OnFragmentInteractionListener) {
+            mListener = (OnFragmentInteractionListener) context;
+        } else {
+            throw new RuntimeException(context.toString()
+                    + " must implement OnFragmentInteractionListener");
+        }
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.i("Here", "On create");
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
+        Log.i("Here", "On create View");
         View root = inflater.inflate(R.layout.housing_page, container, false);
         ViewPager viewPager; //The pager widget, which handles animation and allows swiping horizontally to access previous and next page
         HousingPageAdapter adapter; // Provides the pages to the view pager
-        TabLayout housingTabs = root.findViewById(R.id.housingTabLayout);
 
+        TabLayout housingTabs = root.findViewById(R.id.housingTabLayout);
         viewPager = root.findViewById(R.id.housingViewPager);   // Finding the view pager
         adapter = new HousingPageAdapter(getFragmentManager()); // Initializing adapter object
 
@@ -41,7 +54,12 @@ public class HousingPage extends Fragment {
     }
 
     @Override
-    public void onDetach() { super.onDetach(); }
+    public void onDetach() { super.onDetach(); mListener = null; }
+
+    public interface OnFragmentInteractionListener {
+        // TODO: Update argument type and name
+        void onFragmentInteraction(Uri uri);
+    }
 
     /**
      * Use this factory method to create a new instance of this fragment using the provided parameters.

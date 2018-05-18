@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 
+<!-- We can manually specify the elevation of buttons -->
+<!-- We should call this in the in the button configuration :
+    android:stateListAnimator="@animator/cardview_buttons_elevation" -->
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
 
     <!-- Normal mode -->

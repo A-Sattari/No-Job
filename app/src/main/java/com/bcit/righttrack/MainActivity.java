@@ -10,7 +10,6 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
-import com.bcit.righttrack.housingPage.HousingMap;
 import com.bcit.righttrack.housingPage.HousingPage;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
@@ -25,11 +24,10 @@ import java.util.ArrayList;
  * @version pre-alpha
  * @author Group JAD
  */
-public class MainActivity
-        extends AppCompatActivity
+public class MainActivity extends AppCompatActivity
         implements FoodBank.OnFragmentInteractionListener,
                    HomePage.OnFragmentInteractionListener,
-                   HousingMap.OnFragmentInteractionListener,
+                   HousingPage.OnFragmentInteractionListener,
                    EmploymentServices.OnFragmentInteractionListener{
 
     private static final String TAG = MainActivity.class.getName();
